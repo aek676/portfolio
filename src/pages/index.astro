@@ -1,223 +1,214 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Background from "../components/Background.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import Background from '../components/Background.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Anass - Software Engineer Portfolio">
-	<Background />
-	<Header />
+  <Background />
+  <Header />
 
-	<!-- Héroe -->
-	<section
-		id="inicio"
-		class="h-screen flex flex-col justify-center items-center text-center px-4 relative"
-	>
-		<h1
-			class="text-6xl md:text-8xl font-black mb-4 tracking-tighter leading-none text-gradient drop-shadow-2xl"
-		>
-			SOFTWARE <br /><span>ENGINEER.</span>
-		</h1>
-		<p
-			class="text-lg md:text-xl text-[var(--color-text-muted)] max-w-2xl font-light mb-8"
-		>
-			Construyendo el futuro digital con código limpio, arquitectura
-			escalable y diseño inmersivo.
-		</p>
+  <!-- Héroe -->
+  <section
+    id="inicio"
+    class="h-screen flex flex-col justify-center items-center text-center px-4 relative"
+  >
+    <h1
+      class="text-6xl md:text-8xl font-black mb-4 tracking-tighter leading-none text-gradient drop-shadow-2xl"
+    >
+      SOFTWARE <br /><span>ENGINEER.</span>
+    </h1>
+    <p
+      class="text-lg md:text-xl text-(--color-text-muted) max-w-2xl font-light mb-8"
+    >
+      Construyendo el futuro digital con código limpio, arquitectura escalable y
+      diseño inmersivo.
+    </p>
 
-		<!-- Social Links & Actions -->
-		<div class="flex flex-col items-center gap-8">
-			<div class="flex space-x-6">
-				<!-- GitHub -->
-				<a
-					href="https://github.com"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="text-[var(--color-text-main)] hover:text-emerald-500 transition-colors transform hover:scale-110"
-				>
-					<svg
-						class="w-8 h-8"
-						fill="currentColor"
-						viewBox="0 0 24 24"
-						aria-hidden="true"
-						><path
-							fill-rule="evenodd"
-							d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-							clip-rule="evenodd"></path></svg
-					>
-				</a>
-				<!-- LinkedIn -->
-				<a
-					href="https://linkedin.com"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="text-[var(--color-text-main)] hover:text-emerald-500 transition-colors transform hover:scale-110"
-				>
-					<svg
-						class="w-8 h-8"
-						fill="currentColor"
-						viewBox="0 0 24 24"
-						aria-hidden="true"
-						><path
-							fill-rule="evenodd"
-							d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
-							clip-rule="evenodd"></path></svg
-					>
-				</a>
-				<!-- Email -->
-				<a
-					href="mailto:contact@example.com"
-					class="text-[var(--color-text-main)] hover:text-emerald-500 transition-colors transform hover:scale-110"
-				>
-					<svg
-						class="w-8 h-8"
-						fill="currentColor"
-						viewBox="0 0 24 24"
-						aria-hidden="true"
-						><path
-							d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
-						></path><path
-							d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
-						></path></svg
-					>
-				</a>
-			</div>
+    <!-- Social Links & Actions -->
+    <div class="flex flex-col items-center gap-8">
+      <div class="flex space-x-6">
+        <!-- GitHub -->
+        <a
+          href="https://github.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-(--color-text-main) hover:text-emerald-500 transition-colors transform hover:scale-110"
+        >
+          <svg
+            class="w-8 h-8"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            ><path
+              fill-rule="evenodd"
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+              clip-rule="evenodd"></path></svg
+          >
+        </a>
+        <!-- LinkedIn -->
+        <a
+          href="https://linkedin.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-(--color-text-main) hover:text-emerald-500 transition-colors transform hover:scale-110"
+        >
+          <svg
+            class="w-8 h-8"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            ><path
+              fill-rule="evenodd"
+              d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+              clip-rule="evenodd"></path></svg
+          >
+        </a>
+        <!-- Email -->
+        <a
+          href="mailto:contact@example.com"
+          class="text-(--color-text-main) hover:text-emerald-500 transition-colors transform hover:scale-110"
+        >
+          <svg
+            class="w-8 h-8"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            ><path
+              d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+            ></path><path
+              d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
+            ></path></svg
+          >
+        </a>
+      </div>
 
-			<div class="flex space-x-4">
-				<a
-					href="/proyectos"
-					class="px-8 py-3 bg-emerald-500 text-black font-bold rounded-full hover:bg-emerald-400 transition-all duration-300 shadow-lg shadow-emerald-500/20"
-					>Ver Proyectos</a
-				>
-				<a
-					href="/sobre-mi"
-					class="px-8 py-3 border border-emerald-500/30 text-[var(--color-text-main)] rounded-full hover:bg-emerald-500/10 transition-all"
-					>Sobre mí</a
-				>
-			</div>
-		</div>
-	</section>
+      <div class="flex space-x-4">
+        <a
+          href="/proyectos"
+          class="px-8 py-3 bg-emerald-500 text-black font-bold rounded-full hover:bg-emerald-400 transition-all duration-300 shadow-lg shadow-emerald-500/20"
+          >Ver Proyectos</a
+        >
+        <a
+          href="/sobre-mi"
+          class="px-8 py-3 border border-emerald-500/30 text-(--color-text-main) rounded-full hover:bg-emerald-500/10 transition-all"
+          >Sobre mí</a
+        >
+      </div>
+    </div>
+  </section>
 
-	<!-- Proyectos Destacados -->
-	<section id="proyectos" class="py-24 px-6">
-		<div class="max-w-6xl mx-auto">
-			<div class="flex justify-between items-end mb-12 section-fade">
-				<h2
-					class="text-3xl md:text-4xl font-bold text-[var(--color-text-main)] flex items-center"
-				>
-					<span class="w-12 h-[3px] bg-emerald-500 mr-4"></span> Proyectos
-					Destacados
-				</h2>
-				<a
-					href="/proyectos"
-					class="hidden md:block text-emerald-600 font-bold hover:underline"
-					>Ver todos &rarr;</a
-				>
-			</div>
+  <!-- Proyectos Destacados -->
+  <section id="proyectos" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex justify-between items-end mb-12 section-fade">
+        <h2
+          class="text-3xl md:text-4xl font-bold text-(--color-text-main) flex items-center"
+        >
+          <span class="w-12 h-0.75 bg-emerald-500 mr-4"></span> Proyectos Destacados
+        </h2>
+        <a
+          href="/proyectos"
+          class="hidden md:block text-emerald-600 font-bold hover:underline"
+          >Ver todos &rarr;</a
+        >
+      </div>
 
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-				<!-- Proyecto 1 -->
-				<article
-					class="glass-card p-8 group hover:scale-[1.02] transition-transform duration-300 section-fade"
-				>
-					<div
-						class="h-48 bg-slate-200 rounded-xl mb-6 overflow-hidden relative border border-[var(--color-glass-border)] flex items-center justify-center"
-					>
-						<span class="text-4xl">🚀</span>
-					</div>
-					<h3
-						class="text-2xl font-bold mb-2 text-[var(--color-text-main)]"
-					>
-						SaaS Platform Core
-					</h3>
-					<p class="text-[var(--color-text-muted)] mb-4 text-sm">
-						Arquitectura de microservicios escalable desarrollada
-						con Node.js y Kubernetes.
-					</p>
-					<div class="flex flex-wrap gap-2 mb-6">
-						<span
-							class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full"
-							>Node.js</span
-						>
-						<span
-							class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full"
-							>Docker</span
-						>
-					</div>
-				</article>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Proyecto 1 -->
+        <article
+          class="glass-card p-8 group hover:scale-[1.02] transition-transform duration-300 section-fade"
+        >
+          <div
+            class="h-48 bg-slate-200 rounded-xl mb-6 overflow-hidden relative border border-(--color-glass-border) flex items-center justify-center"
+          >
+            <span class="text-4xl">🚀</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-2 text-(--color-text-main)">
+            SaaS Platform Core
+          </h3>
+          <p class="text-(--color-text-muted) mb-4 text-sm">
+            Arquitectura de microservicios escalable desarrollada con Node.js y
+            Kubernetes.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span
+              class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full"
+              >Node.js</span
+            >
+            <span
+              class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full"
+              >Docker</span
+            >
+          </div>
+        </article>
 
-				<!-- Proyecto 2 -->
-				<article
-					class="glass-card p-8 group hover:scale-[1.02] transition-transform duration-300 section-fade"
-				>
-					<div
-						class="h-48 bg-slate-200 rounded-xl mb-6 overflow-hidden relative border border-[var(--color-glass-border)] flex items-center justify-center"
-					>
-						<span class="text-4xl">🤖</span>
-					</div>
-					<h3
-						class="text-2xl font-bold mb-2 text-[var(--color-text-main)]"
-					>
-						AI Agent Framework
-					</h3>
-					<p class="text-[var(--color-text-muted)] mb-4 text-sm">
-						Sistema de agentes autónomos para automatización de
-						tareas complejas.
-					</p>
-					<div class="flex flex-wrap gap-2 mb-6">
-						<span
-							class="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full"
-							>Python</span
-						>
-						<span
-							class="px-3 py-1 bg-orange-100 text-orange-800 text-xs font-bold rounded-full"
-							>TensorFlow</span
-						>
-					</div>
-				</article>
+        <!-- Proyecto 2 -->
+        <article
+          class="glass-card p-8 group hover:scale-[1.02] transition-transform duration-300 section-fade"
+        >
+          <div
+            class="h-48 bg-slate-200 rounded-xl mb-6 overflow-hidden relative border border-(--color-glass-border) flex items-center justify-center"
+          >
+            <span class="text-4xl">🤖</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-2 text-(--color-text-main)">
+            AI Agent Framework
+          </h3>
+          <p class="text-(--color-text-muted) mb-4 text-sm">
+            Sistema de agentes autónomos para automatización de tareas
+            complejas.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span
+              class="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full"
+              >Python</span
+            >
+            <span
+              class="px-3 py-1 bg-orange-100 text-orange-800 text-xs font-bold rounded-full"
+              >TensorFlow</span
+            >
+          </div>
+        </article>
 
-				<!-- Proyecto 3 -->
-				<article
-					class="glass-card p-8 group hover:scale-[1.02] transition-transform duration-300 section-fade"
-				>
-					<div
-						class="h-48 bg-slate-200 rounded-xl mb-6 overflow-hidden relative border border-[var(--color-glass-border)] flex items-center justify-center"
-					>
-						<span class="text-4xl">📱</span>
-					</div>
-					<h3
-						class="text-2xl font-bold mb-2 text-[var(--color-text-main)]"
-					>
-						Mobile Finance App
-					</h3>
-					<p class="text-[var(--color-text-muted)] mb-4 text-sm">
-						Aplicación nativa de alto rendimiento para gestión
-						financiera personal.
-					</p>
-					<div class="flex flex-wrap gap-2 mb-6">
-						<span
-							class="px-3 py-1 bg-sky-100 text-sky-800 text-xs font-bold rounded-full"
-							>React Native</span
-						>
-						<span
-							class="px-3 py-1 bg-purple-100 text-purple-800 text-xs font-bold rounded-full"
-							>TypeScript</span
-						>
-					</div>
-				</article>
-			</div>
+        <!-- Proyecto 3 -->
+        <article
+          class="glass-card p-8 group hover:scale-[1.02] transition-transform duration-300 section-fade"
+        >
+          <div
+            class="h-48 bg-slate-200 rounded-xl mb-6 overflow-hidden relative border border-(--color-glass-border) flex items-center justify-center"
+          >
+            <span class="text-4xl">📱</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-2 text-(--color-text-main)">
+            Mobile Finance App
+          </h3>
+          <p class="text-(--color-text-muted) mb-4 text-sm">
+            Aplicación nativa de alto rendimiento para gestión financiera
+            personal.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span
+              class="px-3 py-1 bg-sky-100 text-sky-800 text-xs font-bold rounded-full"
+              >React Native</span
+            >
+            <span
+              class="px-3 py-1 bg-purple-100 text-purple-800 text-xs font-bold rounded-full"
+              >TypeScript</span
+            >
+          </div>
+        </article>
+      </div>
 
-			<div class="mt-8 text-center md:hidden">
-				<a
-					href="/proyectos"
-					class="text-emerald-600 font-bold hover:underline"
-					>Ver todos los proyectos &rarr;</a
-				>
-			</div>
-		</div>
-	</section>
+      <div class="mt-8 text-center md:hidden">
+        <a href="/proyectos" class="text-emerald-600 font-bold hover:underline"
+          >Ver todos los proyectos &rarr;</a
+        >
+      </div>
+    </div>
+  </section>
 
-	<!-- Footer -->
-	<Footer />
+  <!-- Footer -->
+  <Footer />
 </Layout>

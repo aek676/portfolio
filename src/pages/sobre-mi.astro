@@ -1,100 +1,94 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Background from "../components/Background.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import Background from '../components/Background.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Sobre Mí - Software Engineer">
-    <Background />
-    <Header />
+  <Background />
+  <Header />
 
-    <section class="min-h-screen pt-32 px-6 flex items-center justify-center">
-        <div
-            class="max-w-5xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+  <section class="min-h-screen pt-32 px-6 flex items-center justify-center">
+    <div
+      class="max-w-5xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+    >
+      <!-- Texto Bio -->
+      <div class="order-2 md:order-1 section-fade">
+        <h1
+          class="text-4xl md:text-5xl font-bold mb-6 text-(--color-text-main)"
         >
-            <!-- Texto Bio -->
-            <div class="order-2 md:order-1 section-fade">
-                <h1
-                    class="text-4xl md:text-5xl font-bold mb-6 text-[var(--color-text-main)]"
-                >
-                    <span
-                        class="text-emerald-600 block text-lg uppercase tracking-widest mb-2 font-medium"
-                        >Sobre Mí</span
-                    >
-                    Ingeniero de Software & <br /> Arquitecto de Soluciones
-                </h1>
-                <div
-                    class="space-y-6 text-[var(--color-text-muted)] text-lg leading-relaxed"
-                >
-                    <p>
-                        Hola, soy un apasionado de la tecnología con más de 5
-                        años de experiencia construyendo sistemas escalables y
-                        experiencias digitales inmersivas.
-                    </p>
-                    <p>
-                        Mi enfoque combina la precisión de la ingeniería de
-                        backend con la creatividad del desarrollo frontend,
-                        asegurando que cada línea de código no solo funcione,
-                        sino que aporte valor real.
-                    </p>
-                    <p>
-                        Actualmente me especializo en arquitecturas
-                        cloud-native, optimización de rendimiento y diseño de
-                        interfaces modernas.
-                    </p>
-                </div>
-
-                <div
-                    class="mt-8 pt-8 border-t border-[var(--color-glass-border)]"
-                >
-                    <h3
-                        class="text-xl font-bold mb-4 text-[var(--color-text-main)]"
-                    >
-                        Stack Tecnológico
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span
-                            class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
-                            >TypeScript</span
-                        >
-                        <span
-                            class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
-                            >Rust</span
-                        >
-                        <span
-                            class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
-                            >React / Astro</span
-                        >
-                        <span
-                            class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
-                            >Kubernetes</span
-                        >
-                        <span
-                            class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
-                            >GraphQL</span
-                        >
-                    </div>
-                </div>
-            </div>
-
-            <!-- Imagen / Avatar Placeholder -->
-            <div class="order-1 md:order-2 flex justify-center section-fade">
-                <div class="relative w-64 h-64 md:w-80 md:h-80">
-                    <div
-                        class="absolute inset-0 bg-emerald-500 rounded-full blur-3xl opacity-20 animate-pulse"
-                    >
-                    </div>
-                    <div
-                        class="relative w-full h-full glass-card rounded-full overflow-hidden border-4 border-white/30 flex items-center justify-center bg-slate-100"
-                    >
-                        <span class="text-8xl">👨‍💻</span>
-                    </div>
-                </div>
-            </div>
+          <span
+            class="text-emerald-600 block text-lg uppercase tracking-widest mb-2 font-medium"
+            >Sobre Mí</span
+          >
+          Ingeniero de Software & <br /> Arquitecto de Soluciones
+        </h1>
+        <div
+          class="space-y-6 text-(--color-text-muted) text-lg leading-relaxed"
+        >
+          <p>
+            Hola, soy un apasionado de la tecnología con más de 5 años de
+            experiencia construyendo sistemas escalables y experiencias
+            digitales inmersivas.
+          </p>
+          <p>
+            Mi enfoque combina la precisión de la ingeniería de backend con la
+            creatividad del desarrollo frontend, asegurando que cada línea de
+            código no solo funcione, sino que aporte valor real.
+          </p>
+          <p>
+            Actualmente me especializo en arquitecturas cloud-native,
+            optimización de rendimiento y diseño de interfaces modernas.
+          </p>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <Footer />
+        <div class="mt-8 pt-8 border-t border-(--color-glass-border)">
+          <h3 class="text-xl font-bold mb-4 text-(--color-text-main)">
+            Stack Tecnológico
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
+              >TypeScript</span
+            >
+            <span
+              class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
+              >Rust</span
+            >
+            <span
+              class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
+              >React / Astro</span
+            >
+            <span
+              class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
+              >Kubernetes</span
+            >
+            <span
+              class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
+              >GraphQL</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Imagen / Avatar Placeholder -->
+      <div class="order-1 md:order-2 flex justify-center section-fade">
+        <div class="relative w-64 h-64 md:w-80 md:h-80">
+          <div
+            class="absolute inset-0 bg-emerald-500 rounded-full blur-3xl opacity-20 animate-pulse"
+          >
+          </div>
+          <div
+            class="relative w-full h-full glass-card rounded-full overflow-hidden border-4 border-white/30 flex items-center justify-center bg-slate-100"
+          >
+            <span class="text-8xl">👨‍💻</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <Footer />
 </Layout>
