@@ -7,17 +7,27 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
+
+const pathName = Astro.url.pathname;
 ---
 
 <header
-  class="fixed top-0 w-full z-50 p-6 flex justify-between items-center bg-(--color-glass-bg) backdrop-blur-md border-b border-[--color-glass-border] text-(--color-text-main) transition-all duration-300"
+  class="fixed top-0 w-full z-50 p-6 flex justify-between items-center bg-(--color-glass-bg) backdrop-blur-md border-b border-(--color-glass-border) text-(--color-text-main) transition-all duration-300"
 >
-  <a
-    href="/"
-    class="text-2xl font-bold tracking-tighter italic hover:opacity-80 transition-opacity"
-  >
-    ANASS<span class="text-emerald-500">.</span>
-  </a>
+  {
+    pathName === '/' ? (
+      <span class="text-2xl font-bold tracking-tighter italic hover:opacity-80 transition-opacity">
+        ANASS<span class="text-emerald-500">.</span>
+      </span>
+    ) : (
+      <a
+        href="/"
+        class="text-2xl font-bold tracking-tighter italic hover:opacity-80 transition-opacity"
+      >
+        ANASS<span class="text-emerald-500">.</span>
+      </a>
+    )
+  }
 
   <NavigationMenu class="hidden md:flex">
     <NavigationMenuList class="gap-6">
