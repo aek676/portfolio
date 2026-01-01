@@ -1,0 +1,112 @@
+---
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu';
+---
+
+<header
+  class="fixed top-0 w-full z-50 p-6 flex justify-between items-center bg-(--color-glass-bg) backdrop-blur-md border-b border-[--color-glass-border] text-(--color-text-main) transition-all duration-300"
+>
+  <a
+    href="/"
+    class="text-2xl font-bold tracking-tighter italic hover:opacity-80 transition-opacity"
+  >
+    ANASS<span class="text-emerald-500">.</span>
+  </a>
+
+  <NavigationMenu class="hidden md:flex">
+    <NavigationMenuList class="gap-6">
+      <NavigationMenuItem>
+        <NavigationMenuLink
+          href="/"
+          variant="trigger"
+          class="uppercase tracking-widest hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
+        >
+          Inicio
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+      <NavigationMenuItem>
+        <NavigationMenuLink
+          href="/proyectos"
+          variant="trigger"
+          class="uppercase tracking-widest hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
+        >
+          Proyectos
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+      <NavigationMenuItem>
+        <NavigationMenuLink
+          href="/sobre-mi"
+          variant="trigger"
+          class="uppercase tracking-widest hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
+        >
+          Sobre mí
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+      <NavigationMenuItem>
+        <NavigationMenuLink
+          href="#contacto"
+          variant="trigger"
+          class="uppercase tracking-widest hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
+        >
+          Contacto
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+    </NavigationMenuList>
+  </NavigationMenu>
+
+  <NavigationMenu class="md:hidden">
+    <NavigationMenuList>
+      <NavigationMenuItem class="static">
+        <NavigationMenuTrigger
+          class="text-2xl p-2 bg-transparent hover:bg-transparent focus:bg-transparent"
+        >
+          <span id="mobile-icon">☰</span>
+        </NavigationMenuTrigger>
+        <NavigationMenuContent
+          class="fixed top-22 left-0 w-full h-auto bg-(--color-glass-bg) backdrop-blur-xl border-b border-(--color-glass-border) p-8 shadow-2xl transition-all duration-500 ease-in-out -translate-y-4 opacity-0 group-focus-within/navigation-menu-item:translate-y-0 group-focus-within/navigation-menu-item:opacity-100"
+        >
+          <ul class="flex flex-col items-center space-y-6">
+            <li>
+              <NavigationMenuLink
+                href="/"
+                class="text-xl uppercase tracking-widest font-semibold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
+              >
+                Inicio
+              </NavigationMenuLink>
+            </li>
+            <li>
+              <NavigationMenuLink
+                href="/proyectos"
+                class="text-xl uppercase tracking-widest font-semibold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
+              >
+                Proyectos
+              </NavigationMenuLink>
+            </li>
+            <li>
+              <NavigationMenuLink
+                href="/sobre-mi"
+                class="text-xl uppercase tracking-widest font-semibold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
+              >
+                Sobre mí
+              </NavigationMenuLink>
+            </li>
+            <li>
+              <NavigationMenuLink
+                href="#contacto"
+                class="text-xl uppercase tracking-widest font-semibold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
+              >
+                Contacto
+              </NavigationMenuLink>
+            </li>
+          </ul>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    </NavigationMenuList>
+  </NavigationMenu>
+</header>

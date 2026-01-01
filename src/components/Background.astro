@@ -1,0 +1,303 @@
+<div class="sky-container">
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+  <div class="cloud cloud-4"></div>
+</div>
+
+<style>
+  .sky-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(
+      var(--color-sky-top) 0%,
+      var(--color-horizon) 60%,
+      #4b3621 100%
+    );
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .cloud {
+    position: absolute;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0) 70%
+    );
+    border-radius: 50%;
+    filter: blur(10px);
+    opacity: 0.95;
+    animation: floatCloud linear infinite;
+  }
+
+  .cloud-1 {
+    width: 500px;
+    height: 200px;
+    top: 5%;
+    left: -20%;
+    animation-duration: 45s;
+    animation-delay: 0s;
+  }
+
+  .cloud-2 {
+    width: 700px;
+    height: 300px;
+    top: 15%;
+    left: -20%;
+    opacity: 0.6;
+    animation-duration: 65s;
+    animation-delay: -20s;
+  }
+
+  .cloud-3 {
+    width: 300px;
+    height: 150px;
+    top: 25%;
+    left: -10%;
+    opacity: 0.5;
+    animation-duration: 35s;
+    animation-delay: -5s;
+  }
+
+  .cloud-4 {
+    width: 600px;
+    height: 250px;
+    top: -5%;
+    left: -10%;
+    opacity: 0.7;
+    animation-duration: 55s;
+    animation-delay: -30s;
+  }
+
+  @keyframes floatCloud {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(120vw);
+    }
+  }
+</style>
+
+<script>
+  import * as THREE from 'three';
+
+  const vertexShader = `
+    precision highp float;
+    
+    // Matrices Uniformes standard (necesarias explícitamente en RawShaderMaterial)
+    uniform mat4 modelViewMatrix;
+    uniform mat4 projectionMatrix;
+    
+    // Atributos standard (necesarios explícitamente en RawShaderMaterial)
+    attribute vec3 position;
+    attribute vec2 uv;
+    
+    // Atributo de Instancia (necesario explícitamente)
+    attribute mat4 instanceMatrix;
+    
+    // Varyings
+    varying vec2 vUv;
+    varying float vHeight;
+    
+    // Uniforms custom
+    uniform float uTime;
+
+    void main() {
+        vUv = uv;
+        vHeight = position.y;
+        
+        vec3 pos = position; // Local position
+        
+        // Multiplicación manual de matriz de instancia para obtener posición mundo
+        vec4 instancePosition = instanceMatrix * vec4(pos, 1.0);
+        vec3 worldPos = instancePosition.xyz;
+        
+        // Viento sutil
+        float windEffect = sin(uTime * 1.5 + worldPos.x * 0.5) * 0.1;
+        
+        // La fuerza del viento aumenta con la altura (y)
+        float strength = pow(vHeight, 2.0);
+        
+        // Aplicamos el viento a la posición LOCAL
+        vec3 localPos = position;
+        localPos.x += windEffect * strength;
+        
+        // Transformación final: Proyección * Vista * Modelo(Instancia) * PosiciónLocalModificada
+        gl_Position = projectionMatrix * modelViewMatrix * instanceMatrix * vec4(localPos, 1.0);
+    }
+  `;
+
+  // Fragment Shader (RawShaderMaterial)
+  const fragmentShader = `
+    precision highp float;
+    
+    varying vec2 vUv;
+    varying float vHeight;
+    
+    uniform vec3 uFogColor;
+
+    void main() {
+        // Colores definidos
+        vec3 colorNear = vec3(0.914, 0.769, 0.416); // #E9C46A (Amarillo)
+        vec3 colorFar = vec3(0.518, 0.663, 0.361);  // #84A95C (Verde)
+        
+        // Calculo manual de profundidad para el gradiente de color
+        float depth = gl_FragCoord.z / gl_FragCoord.w;
+        
+        // Factor de mezcla basado en distancia (ajustar los valores min/max según la escena)
+        float mixFactor = smoothstep(5.0, 60.0, depth);
+        
+        vec3 baseColor = mix(colorNear, colorFar, mixFactor);
+        
+        // Aplicar un poco de variación por altura de la brizna para dar volumen (más oscuro abajo)
+        vec3 finalColor = baseColor * (0.6 + 0.4 * vHeight);
+        
+        // Oclusión simple
+        finalColor *= 0.5 + 0.5 * vHeight;
+        
+        // Niebla (Depth Fog)
+        float fogFactor = smoothstep(15.0, 90.0, depth);
+        
+        gl_FragColor = vec4(mix(finalColor, uFogColor, fogFactor), 1.0);
+    }
+  `;
+
+  function init() {
+    // Evitar reinicialización en HMR
+    if (document.querySelector('canvas[data-engine="three"]')) return;
+
+    try {
+      const scene = new THREE.Scene();
+
+      // Niebla ajustada para la profundidad - COLOR VERDE
+      const horizonColor = 0x84a95c;
+      scene.fog = new THREE.Fog(horizonColor, 15, 90);
+
+      const camera = new THREE.PerspectiveCamera(
+        60,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      camera.position.set(0, 1.8, 12);
+      camera.lookAt(0, 2.5, 0);
+
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.domElement.setAttribute('data-engine', 'three');
+
+      // Estilos fijos para el canvas
+      renderer.domElement.style.position = 'fixed';
+      renderer.domElement.style.top = '0';
+      renderer.domElement.style.left = '0';
+      renderer.domElement.style.zIndex = '-1';
+      renderer.domElement.style.pointerEvents = 'none';
+
+      document.body.appendChild(renderer.domElement);
+
+      const geometry = new THREE.PlaneGeometry(0.08, 1.4, 1, 4);
+      geometry.translate(0, 0.7, 0);
+
+      // RawShaderMaterial: NO inyecta nada, control total.
+      const material = new THREE.RawShaderMaterial({
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader,
+        uniforms: {
+          uTime: { value: 0 },
+          uFogColor: { value: new THREE.Color(horizonColor) },
+        },
+        side: THREE.DoubleSide,
+        transparent: true,
+      });
+
+      // Aumentamos masivamente la cantidad y el rango para cubrir toda la vista "infinita"
+      const GRASS_COUNT = 450000;
+      const grassMesh = new THREE.InstancedMesh(
+        geometry,
+        material,
+        GRASS_COUNT
+      );
+
+      const dummy = new THREE.Object3D();
+      // Rangos independientes
+      const rangeX = 300; // Mucho más ancho para que no se vean bordes al hacer scroll/subir
+      const rangeZ = 140;
+
+      for (let i = 0; i < GRASS_COUNT; i++) {
+        // Distribución: X muy amplio, Z profundo
+        const x = (Math.random() - 0.5) * rangeX;
+        const z = Math.random() * -rangeZ + 20; // Empezar un poco más "atrás" de la cámara incluso
+
+        dummy.position.set(x, 0, z);
+
+        dummy.rotation.y = Math.random() * Math.PI;
+        dummy.scale.setScalar(0.5 + Math.random() * 1.5);
+        dummy.updateMatrix();
+        grassMesh.setMatrixAt(i, dummy.matrix);
+      }
+
+      grassMesh.instanceMatrix.needsUpdate = true; // CRÍTICO: Subir datos a GPU
+      grassMesh.frustumCulled = false; // Evitar que desaparezca si el cálculo de límites falla
+
+      scene.add(grassMesh);
+
+      // Eventos
+      const onResize = () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      };
+      window.addEventListener('resize', onResize);
+
+      const onScroll = () => {
+        const scrollPercent =
+          window.scrollY /
+          (document.documentElement.scrollHeight - window.innerHeight || 1);
+        camera.position.y = 1.8 + scrollPercent * 6;
+        camera.position.z = 12 - scrollPercent * 4;
+
+        const fades = document.querySelectorAll('.section-fade');
+        fades.forEach((sec) => {
+          const rect = sec.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.9) {
+            sec.classList.add('visible');
+          }
+        });
+      };
+      window.addEventListener('scroll', onScroll);
+      onScroll(); // Init pos
+
+      const animate = () => {
+        requestAnimationFrame(animate);
+        const time = performance.now();
+        // Solo actualizar uniforms si existen (evita error con MeshBasicMaterial)
+        if (material.uniforms) {
+          material.uniforms.uTime.value = time * 0.001;
+        }
+        renderer.render(scene, camera);
+      };
+      animate();
+    } catch (e) {
+      console.error('Three.js Init Error:', e);
+      const err = document.createElement('div');
+      err.style.cssText =
+        'position:fixed;top:0;left:0;background:red;color:white;padding:20px;z-index:9999';
+      err.textContent =
+        'Graphic Error: ' + (e instanceof Error ? e.message : String(e));
+      document.body.appendChild(err);
+    }
+  }
+
+  // Ejecutar inmediatamente
+  init();
+</script>
