@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+// TODO: complete
+Sitemap: https://<YOUR SITE>/sitemap-index.xml
