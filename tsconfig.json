@@ -3,7 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "strictNullChecks": true,
+    "allowJs": true
   },
 
   "extends": "astro/tsconfigs/strict",
