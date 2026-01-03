@@ -2,6 +2,7 @@
 import Background from '@/components/Background.astro';
 import Footer from '@/components/Footer.astro';
 import Header from '@/components/Header.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
 import Layout from '@/layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
@@ -24,6 +25,18 @@ console.log(allProjects);
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Proyecto 1 -->
+        <ProjectCard
+          title={allProjects[0].data.title}
+          description="Arquitectura de microservicios escalable desarrollada con Node.js y Kubernetes."
+          image="/images/projects/saas-platform.png"
+          link="#"
+          tags={[
+            { name: 'Node.js', color: 'emerald' },
+            { name: 'Docker', color: 'blue' },
+            { name: 'AWS', color: 'slate' },
+          ]}
+        />
+
         <article
           class="glass-card p-8 group hover:scale-[1.02] transition-transform duration-300"
         >

@@ -1,0 +1,46 @@
+---
+interface Tag {
+  name: string;
+  color: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  image: string;
+  link: string;
+  tags: Tag[];
+}
+
+const { title, description, image, link, tags } = Astro.props;
+---
+
+<article
+  class="glass-card p-8 group hover:scale-[1.02] transition-transform duration-300"
+>
+  <div
+    class="h-48 bg-slate-200 rounded-xl mb-6 overflow-hidden relative border border-(--color-glass-border) flex items-center justify-center"
+  >
+    <span class="text-4xl">🚀</span>
+  </div>
+  <h3 class="text-2xl font-bold mb-2 text-(--color-text-main)">
+    {title}
+  </h3>
+  <p class="text-(--color-text-muted) mb-4 text-sm">
+    {description}
+  </p>
+  <div class="flex flex-wrap gap-2 mb-6">
+    {
+      tags.map((tag) => (
+        <span
+          class={`px-3 py-1 bg-${tag.color}-100 text-${tag.color}-800 text-xs font-bold rounded-full`}
+        >
+          {tag.name}
+        </span>
+      ))
+    }
+  </div>
+  <a href="#" class="inline-block text-emerald-600 font-bold hover:underline"
+    >Ver Código &rarr;</a
+  >
+</article>
