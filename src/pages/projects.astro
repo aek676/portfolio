@@ -1,7 +1,5 @@
 ---
 import Background from "@/components/Background.astro";
-import Footer from "@/components/Footer.astro";
-import Header from "@/components/Header.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
@@ -13,8 +11,6 @@ console.log(allProjects);
 
 <Layout title="Proyectos - Ingeniería de Software">
   <Background />
-  <Header />
-
   <section class="min-h-screen pt-32 px-6">
     <div class="max-w-6xl mx-auto">
       <section>
@@ -38,7 +34,6 @@ console.log(allProjects);
           }
         </div>
       </section>
-      <Footer />
     </div>
-  </section></Layout
->
+  </section>
+</Layout>
