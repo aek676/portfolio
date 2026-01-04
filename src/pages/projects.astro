@@ -1,12 +1,12 @@
 ---
-import Background from '@/components/Background.astro';
-import Footer from '@/components/Footer.astro';
-import Header from '@/components/Header.astro';
-import ProjectCard from '@/components/ProjectCard.astro';
-import Layout from '@/layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import Background from "@/components/Background.astro";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-const allProjects = await getCollection('projects');
+const allProjects = await getCollection("projects");
 
 console.log(allProjects);
 ---
@@ -17,131 +17,28 @@ console.log(allProjects);
 
   <section class="min-h-screen pt-32 px-6">
     <div class="max-w-6xl mx-auto">
-      <h1
-        class="text-4xl md:text-5xl font-bold mb-12 text-(--color-text-main) flex items-center section-fade"
-      >
-        <span class="w-12 h-0.75 bg-emerald-500 mr-4"></span> Ingeniería & Proyectos
-      </h1>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Proyecto 1 -->
-        <ProjectCard
-          title={allProjects[0].data.title}
-          description="Arquitectura de microservicios escalable desarrollada con Node.js y Kubernetes."
-          image="/images/projects/saas-platform.png"
-          link="#"
-          tags={[
-            { name: 'Node.js', color: 'emerald' },
-            { name: 'Docker', color: 'blue' },
-            { name: 'AWS', color: 'slate' },
-          ]}
-        />
-
-        <article
-          class="glass-card p-8 group hover:scale-[1.02] transition-transform duration-300"
+      <section>
+        <h1
+          class="text-4xl md:text-5xl font-bold mb-12 text-(--color-text-main) flex items-center section-fade"
         >
-          <div
-            class="h-48 bg-slate-200 rounded-xl mb-6 overflow-hidden relative border border-(--color-glass-border) flex items-center justify-center"
-          >
-            <span class="text-4xl">🚀</span>í
-          </div>
-          <h3 class="text-2xl font-bold mb-2 text-(--color-text-main)">
-            SaaS Platform Core
-          </h3>
-          <p class="text-(--color-text-muted) mb-4 text-sm">
-            Arquitectura de microservicios escalable desarrollada con Node.js y
-            Kubernetes.
-          </p>
-          <div class="flex flex-wrap gap-2 mb-6">
-            <span
-              class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full"
-              >Node.js</span
-            >
-            <span
-              class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full"
-              >Docker</span
-            >
-            <span
-              class="px-3 py-1 bg-slate-100 text-slate-800 text-xs font-bold rounded-full"
-              >AWS</span
-            >
-          </div>
-          <a
-            href="#"
-            class="inline-block text-emerald-600 font-bold hover:underline"
-            >Ver Código &rarr;</a
-          >
-        </article>
+          <span class="w-12 h-0.75 bg-emerald-500 mr-4"></span> Ingeniería & Proyectos
+        </h1>
 
-        <!-- Proyecto 2 -->
-        <article
-          class="glass-card p-8 group hover:scale-[1.02] transition-transform duration-300"
-        >
-          <div
-            class="h-48 bg-slate-200 rounded-xl mb-6 overflow-hidden relative border border-(--color-glass-border) flex items-center justify-center"
-          >
-            <span class="text-4xl">🤖</span>
-          </div>
-          <h3 class="text-2xl font-bold mb-2 text-(--color-text-main)">
-            AI Agent Framework
-          </h3>
-          <p class="text-(--color-text-muted) mb-4 text-sm">
-            Sistema de agentes autónomos para automatización de tareas
-            complejas.
-          </p>
-          <div class="flex flex-wrap gap-2 mb-6">
-            <span
-              class="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full"
-              >Python</span
-            >
-            <span
-              class="px-3 py-1 bg-orange-100 text-orange-800 text-xs font-bold rounded-full"
-              >TensorFlow</span
-            >
-          </div>
-          <a
-            href="#"
-            class="inline-block text-emerald-600 font-bold hover:underline"
-            >Ver Demo &rarr;</a
-          >
-        </article>
-
-        <!-- Proyecto 3 -->
-        <article
-          class="glass-card p-8 group hover:scale-[1.02] transition-transform duration-300"
-        >
-          <div
-            class="h-48 bg-slate-200 rounded-xl mb-6 overflow-hidden relative border border-(--color-glass-border) flex items-center justify-center"
-          >
-            <span class="text-4xl">📱</span>
-          </div>
-          <h3 class="text-2xl font-bold mb-2 text-(--color-text-main)">
-            Mobile Finance App
-          </h3>
-          <p class="text-(--color-text-muted) mb-4 text-sm">
-            Aplicación nativa de alto rendimiento para gestión financiera
-            personal.
-          </p>
-          <div class="flex flex-wrap gap-2 mb-6">
-            <span
-              class="px-3 py-1 bg-sky-100 text-sky-800 text-xs font-bold rounded-full"
-              >React Native</span
-            >
-            <span
-              class="px-3 py-1 bg-purple-100 text-purple-800 text-xs font-bold rounded-full"
-              >TypeScript</span
-            >
-          </div>
-          <a
-            href="#"
-            class="inline-block text-emerald-600 font-bold hover:underline"
-            >Case Study &rarr;</a
-          >
-        </article>
-      </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {
+            allProjects.map((project) => (
+              <ProjectCard
+                id={project.id}
+                title={project.data.title}
+                description={project.data.description}
+                image={project.data.image}
+                tags={project.data.tags}
+              />
+            ))
+          }
+        </div>
+      </section>
+      <Footer />
     </div>
-  </section>
-
-  <!-- Footer -->
-  <Footer />
-</Layout>
+  </section></Layout
+>

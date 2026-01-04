@@ -1,18 +1,15 @@
 ---
-interface Tag {
-  name: string;
-  color: string;
-}
+import type { Tag } from "@/types";
 
 interface Props {
+  id: string;
   title: string;
   description: string;
   image: string;
-  link: string;
   tags: Tag[];
 }
 
-const { title, description, image, link, tags } = Astro.props;
+const { id, title, description, image, tags } = Astro.props;
 ---
 
 <article
@@ -40,7 +37,9 @@ const { title, description, image, link, tags } = Astro.props;
       ))
     }
   </div>
-  <a href="#" class="inline-block text-emerald-600 font-bold hover:underline"
-    >Ver Código &rarr;</a
-  >
+  <a
+    href={`/projects/${id}`}
+    class="inline-block text-emerald-600 font-bold hover:underline"
+    >Ver Código &rarr;
+  </a>
 </article>
