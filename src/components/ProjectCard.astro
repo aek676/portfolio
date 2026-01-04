@@ -10,6 +10,10 @@ interface Props {
 }
 
 const { id, title, description, image, tags } = Astro.props;
+const colorClasses = {
+  blue: "bg-blue-100 text-blue-800",
+  cyan: "bg-cyan-100 text-cyan-800",
+};
 ---
 
 <article
@@ -28,13 +32,14 @@ const { id, title, description, image, tags } = Astro.props;
   </p>
   <div class="flex flex-wrap gap-2 mb-6">
     {
-      tags.map((tag) => (
-        <span
-          class={`px-3 py-1 bg-${tag.color}-100 text-${tag.color}-800 text-xs font-bold rounded-full`}
-        >
-          {tag.name}
-        </span>
-      ))
+      tags.map((tag) => {
+        const theme = colorClasses[tag.color] || "bg-gray-100 text-gray-800";
+        return (
+          <span class={`px-3 py-1 text-xs font-bold rounded-full ${theme}`}>
+            {tag.name}
+          </span>
+        );
+      })
     }
   </div>
   <a

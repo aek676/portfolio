@@ -1,10 +1,11 @@
 ---
 import Layout from "./Layout.astro";
 const { frontmatter } = Astro.props;
+import { ExternalLink, Github } from "@lucide/astro";
 ---
 
 <Layout title={frontmatter.title}>
-  <header class="pt-16 pb-12 bg-white">
+  <header class="pt-20 pb-12 bg-white/200">
     <div class="max-w-5xl mx-auto px-6">
       <h1
         class="text-4xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight"
@@ -17,33 +18,35 @@ const { frontmatter } = Astro.props;
 
       <div class="flex flex-wrap gap-4">
         <a
-          href="#"
-          class="inline-flex items-center px-6 py-3 bg-slate-900 text-white rounded-lg font-semibold hover:bg-slate-800 transition-all"
+          href={`${frontmatter.demo}`}
+          class="inline-flex items-center px-6 py-3 bg-slate-900 text-white rounded-lg font-semibold hover:bg-slate-800 transition-all gap-2"
         >
-          <i class="fa-solid fa-external-link mr-2"></i> Ver Demo en Vivo
+          <ExternalLink /> Ver demo en vivo
         </a>
         <a
-          href="#"
-          class="inline-flex items-center px-6 py-3 border border-slate-300 rounded-lg font-semibold hover:bg-slate-50 transition-all"
+          href={`${frontmatter.github}`}
+          class="text-black inline-flex items-center px-6 py-3 border border-slate-300 rounded-lg font-semibold hover:bg-slate-50 transition-all gap-2"
         >
-          <i class="fa-brands fa-github mr-2"></i> Ver Código
+          <Github /> Ver código
         </a>
       </div>
     </div>
-    <section class="border-y border-slate-200 bg-white">
+    <section class="border-y border-slate-200 bg-white mt-12">
       <div class="max-w-5xl mx-auto px-6 py-8">
         <div class="flex flex-col md:flex-row md:items-center gap-6">
           <h4
             class="text-sm font-bold text-slate-400 uppercase tracking-widest"
           >
-            Stack Tecnológico
+            stack tecnológico
           </h4>
           <div class="flex flex-wrap gap-3">
             {
               frontmatter.tags.map((tag) => (
-                <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg">
+                <div
+                  class={`flex items-center gap-2 bg-${tag.color}-100 border border-slate-200 px-3 py-2 rounded-lg`}
+                >
                   <span class="text-sm font-semibold text-slate-700">
-                    {tag}
+                    {tag.name}
                   </span>
                 </div>
               ))
