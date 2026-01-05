@@ -18,12 +18,17 @@ const { frontmatter } = Astro.props;
       </p>
 
       <div class="flex flex-wrap gap-4">
-        <a
-          href={`${frontmatter.demo}`}
-          class="inline-flex items-center px-6 py-3 bg-slate-900 text-white rounded-lg font-semibold hover:bg-slate-800 transition-all gap-2"
-        >
-          <ExternalLink /> Ver demo en vivo
-        </a>
+        {
+          frontmatter.demo && (
+            <a
+              href={`${frontmatter.demo}`}
+              class="inline-flex items-center px-6 py-3 bg-slate-900 text-white rounded-lg font-semibold hover:bg-slate-800 transition-all gap-2"
+            >
+              <ExternalLink /> Ver demo en vivo
+            </a>
+          )
+        }
+
         <a
           href={`${frontmatter.github}`}
           class="text-black inline-flex items-center px-6 py-3 border border-slate-300 rounded-lg font-semibold hover:bg-slate-50 transition-all gap-2"

@@ -3,7 +3,6 @@ title: "Generador de Sellos de Accesibilidad"
 description: "Un generador de sellos de accesibilidad web que permite a los desarrolladores crear y personalizar sellos para sus sitios web, promoviendo la inclusión digital."
 image: "@/assets/images/accesibility-seal-score.gif"
 github: "https://github.com/aek676/traitor-royale"
-demo: "https://traitor-royale-latest.onrender.com"
 tags:
   - name: "React"
     color: "blue"
@@ -14,9 +13,106 @@ tags:
   - name: "Docker"
     color: "sky"
     icon: "mdi:docker"
+  - name: "Terraform"
+    color: "violet"
+    icon: "mdi:terraform"
 ---
 
 import accesibilitySealScoreGif from "@/assets/images/accesibility-seal-score.gif";
 import BrowserMockup from "@/components/BrowserMockup.astro";
 
 <BrowserMockup image={accesibilitySealScoreGif} title={frontmatter.title} />
+
+## Contexto y propósito
+
+Este proyecto nació durante mis prácticas: en la empresa necesitábamos actualizar un “sello” de accesibilidad cada vez que cambiaba la puntuación, y el proceso dependía de abrir Photoshop y editar manualmente el número en la imagen. Para ahorrar tiempo y que cualquier persona (sin conocimientos de diseño) pudiera generar el sello al instante, construí una solución automatizada: una API que compone la imagen con la puntuación y un frontend web que permite previsualizar y descargar el sello en segundos.
+
+---
+
+## Desafíos Técnicos y Soluciones de Ingeniería
+
+### 1) Composición tipográfica y precisión visual sin Photoshop (Pillow)
+
+La legibilidad y el equilibrio visual del sello dependen de:
+
+- El tipo de letra y su renderizado.
+- El tratamiento de decimales según formato local (coma en vez de punto).
+- La compensación de dígitos con anchura “conflictiva” (por ejemplo, 1 y 7).
+
+- Mi solución:
+  - Usé Pillow (PIL) para componer el texto sobre una base PNG, con la tipografía Oswald-Bold.
+  - Apliqué validaciones estrictas: valores de 0 a 10, máximo dos decimales; el 10 se muestra como “10,0” para mantener consistencia.
+  - Ajusté dinámicamente la posición X del texto en función de la cantidad de “1” y “7” para evitar desalineaciones visibles.
+  - Genero automáticamente dos variantes: fondo claro (white_seal) y fondo oscuro (black_seal) mediante una función de recoloración dedicada.
+
+Archivos clave:
+
+- api/functions/change_score.py: render de la puntuación, carga de tipografías/plantillas y generación de sellos blanco/negro.
+- api/functions/change_seat_color_to_black.py: conversión a versión negra del sello.
+
+### 2) Gestión de activos híbrida: Azure Blob Storage + fallback local
+
+Para desplegar en diferentes entornos sin acoplarme a un sistema de archivos fijo:
+
+- La API carga fuentes e imágenes desde Azure Blob Storage si existe la variable de entorno AzureWebJobsStorage.
+- Si no hay conexión a Azure, hace fallback a assets locales versionados en el repo (api/fonts y api/Sellos).
+
+Beneficios:
+
+- Portabilidad total entre entornos (local, CI, cloud).
+- Control centralizado de assets en producción sin rebuilds innecesarios.
+
+### 3) API sin estado en Azure Functions y distribución simple (Base64)
+
+Opté por una API serverless (Azure Functions) para exponer un contrato mínimo y reproducible:
+
+- Endpoints HTTP anónimos bajo /api.
+- La API devuelve las imágenes en data URLs (base64), lo que facilita su consumo en cualquier frontend sin almacenamiento intermedio.
+- Healthcheck dedicado para orquestación y observabilidad en Docker Compose.
+
+Endpoints principales:
+
+- GET /api/root → Mensaje de bienvenida.
+- GET /api/health → Comprobación de salud.
+- GET /api/imagen-score/`{score}` → Devuelve JSON con white_seal y black_seal como data:image/png;base64,...
+
+---
+
+## Mi Pipeline de CI/CD (DevOps)
+
+He preparado el proyecto para integrarse en flujos de entrega con contenedores:
+
+1. Build
+   - Frontend (generador-de-sellos): React + TypeScript con Vite. Se puede construir con Bun o PNPM (bloqueos incluidos).
+   - API (api): Imagen Docker basada en Azure Functions Python.
+
+2. Dockerización y orquestación
+   - docker-compose.yml levanta dos servicios: api (expuesto internamente en el puerto 80 del contenedor). web (frontend) mapeado a `http://localhost:4280`.
+   - Health checks:
+     - API: GET `http://localhost:80/api/health` (desde el propio contenedor).
+     - Web: GET `http://localhost:4280/`.
+   - Red y nombres de servicio internos para que el frontend consuma la API sin necesidad de exponer puertos adicionales.
+
+3. Infraestructura como código
+   - terraform/: base para definir recursos cloud (por ekemplo, cuentas de almacenamiento de Azure para fuentes e imágenes).
+
+---
+
+## Organización del Proyecto
+
+- api/
+  - function_app.py: registro de endpoints HTTP en Azure Functions.
+  - functions/change_score.py: lógica de composición (Pillow), validaciones y salida en ambas variantes.
+  - functions/change_seat_color_to_black.py: generación del sello en negro.
+  - fonts/: tipografías locales de fallback.
+  - Sellos/: plantillas base del sello.
+  - Dockerfile, requirements.txt, host.kson, .dockerignore.
+- generador-de-sellos/
+  - App.tsx, index.tsx, index.html: interfaz para introducir puntuación, previsualizar y descargar.
+  - Vite + TypeScript; lockfiles bun.lock y pnpm-lock.yaml para reproducibilidad.
+  - Dockerfile.dev y Dockerfile.prod para desarrollo/producción.
+- .github/workflows/
+  - Carpeta reservada para automatizaciones (CI/CD) basadas en GitHub Actions.
+- docker-compose.yml
+  - Orquesta API y frontend, health checks, red y puertos.
+- terraform/
