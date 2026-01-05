@@ -5,13 +5,15 @@ import type { Tag } from "@/types";
 
 const projects = defineCollection({
   loader: glob({ pattern: "**/[^_]*.mdx", base: "./src/projects" }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    tags: z.array(z.custom<Tag>()),
-    github: z.string().url(),
-    demo: z.string().url().optional(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      image: image(),
+      tags: z.array(z.custom<Tag>()),
+      github: z.string().url(),
+      demo: z.string().url().optional(),
+    }),
 });
 
 export const collections = {
