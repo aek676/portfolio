@@ -1,6 +1,7 @@
 ---
 import { ExternalLink, Github } from "@lucide/astro";
 import Layout from "./Layout.astro";
+import TechBadge from "@/components/TechBadge.astro"
 const { frontmatter } = Astro.props;
 ---
 
@@ -42,13 +43,7 @@ const { frontmatter } = Astro.props;
           <div class="flex flex-wrap gap-3">
             {
               frontmatter.tags.map((tag) => (
-                <div
-                  class={`flex items-center gap-2 bg-${tag.color}-100 border border-slate-200 px-3 py-2 rounded-lg`}
-                >
-                  <span class="text-sm font-semibold text-slate-700">
-                    {tag.name}
-                  </span>
-                </div>
+<TechBadge name={tag.name} icon={tag.icon} color={tag.color} />
               ))
             }
           </div>

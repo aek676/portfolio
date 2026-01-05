@@ -8,7 +8,6 @@ const projects = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    image: z.string(),
     tags: z.array(z.custom<Tag>()),
     github: z.string().url(),
     demo: z.string().url().optional(),
