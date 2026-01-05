@@ -1,19 +1,15 @@
 ---
-import type { Tag } from '@/types';
+import type { Tag } from "@/types";
+import TechBadge from "./TechBadge.astro";
 
 interface Props {
   id: string;
   title: string;
   description: string;
-  image: string;
   tags: Tag[];
 }
 
-const { id, title, description, image, tags } = Astro.props;
-const colorClasses = {
-  blue: 'bg-blue-100 text-blue-800',
-  cyan: 'bg-cyan-100 text-cyan-800',
-};
+const { id, title, description, tags } = Astro.props;
 ---
 
 <article
@@ -32,14 +28,9 @@ const colorClasses = {
   </p>
   <div class="flex flex-wrap gap-2 mb-6">
     {
-      tags.map((tag) => {
-        const theme = colorClasses[tag.color] || 'bg-gray-100 text-gray-800';
-        return (
-          <span class={`px-3 py-1 text-xs font-bold rounded-full ${theme}`}>
-            {tag.name}
-          </span>
-        );
-      })
+      tags.map((tag) => (
+        <TechBadge name={tag.name} icon={tag.icon} color={tag.color} />
+      ))
     }
   </div>
   <a
