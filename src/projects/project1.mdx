@@ -11,8 +11,78 @@ tags:
     color: "cyan"
 ---
 
-## Descripcion general
+import { Image } from "astro:assets";
+import traitorRoayleGif from "@/assets/images/traitor-royale.gif";
 
-Este proyecto nació de la necesidad de implementar al juego del Imposotor los personajes de Clash Royale. Principalmente fue,
-que los juegos hechos para este proposito eran muy malos porque estan enteros hechos con ia o porque no había mas categorias posibles.
-Por tanto, me propuse mejorarlo.
+<div class="relative mx-auto border border-gray-200 dark:border-gray-700 rounded-t-xl shadow-2xl overflow-hidden mt-8 bg-gray-100 dark:bg-gray-900">
+  <div class="flex items-center gap-1.5 bg-gray-100 dark:bg-gray-800 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+    <div class="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+    <div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+    <div class="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+  </div>
+
+  <Image
+    src={traitorRoayleGif}
+    alt="Traitor Royale Gif"
+    class="w-full h-auto block mb-0 mt-0"
+  />
+</div>
+
+## Contexto y proposito
+
+El proyecto surgió porque se identificó una carencia de calidad en las aplicaciones existentes para jugar al "Impostor" con la temática de **Clash Royale**.
+La mayoría de las alternativas presentaban una interfaz pobre, datos genéricos o contenido generado por IA sin curación.
+
+---
+
+## Desafíos Técnicos y Soluciones de Ingeniería
+
+### 1. Integración con la API de Clash Royale (Proxy RoyaleAPI)
+
+La API oficial de Clash Royale impone una restricción de seguridad basada en **IP fija**, lo que dificulta el despliegue en plataformas
+de nube dinámicas.
+
+- **Mi solución:** Implementé el consumo de datos a través del proxy de **RoyaleAPI**. Esta decisión me permitió realizar consultas
+  seguras a la base de datos de personajes y cartas sin las restricciones de IP, garantizando que la aplicación tenga acceso a información oficial siempre actualizada.
+
+### 2. Comunicación entre Islas mediante `astro.cookies`
+
+En Astro (una arquitectura MPA), persistir y pasar datos complejos entre diferentes rutas y componentes de React suele ser un desafío.
+
+- **Mi solución:** Utilicé `astro.cookies` como puente de comunicación. Capturo la configuración de la partida en el cliente (React),
+  la persisto en cookies y luego Astro la recupera en el servidor para renderizar la siguiente fase del juego. Esto permite un flujo de
+  navegación confiable sin necesidad de una base de datos externa para estados temporales.
+
+### 3. UX de Inmersión: Gesto "Swipe-to-Reveal"
+
+Para emular la tensión de una carta física y evitar que otros jugadores vean el rol asignado, desarrollé un componente `SwipeCard`.
+Utilicé **Framer Motion** para pulir la detección de eventos táctiles, logrando que el movimiento de la carta sea fluido y natural en
+dispositivos móviles.
+
+---
+
+## Mi Pipeline de CI/CD (DevOps)
+
+He configurado un flujo de integración y despliegue continuo automatizado para que cada mejora llegue a producción de forma controlada:
+
+1. **Build:** Utilizo **Bun** para realizar la compilación rápida de los assets del proyecto.
+2. **Dockerización:** Construyo una imagen de Docker optimizada que encapsula la aplicación lista para producción.
+
+---
+
+## Organización del Proyecto
+
+He estructurado el código de forma modular para facilitar su mantenimiento:
+
+- `src/components/`: Mis islas de React y componentes atómicos (botones, inputs, listas).
+- `src/pages/`: Definición de las rutas y el flujo lógico (Configuración -> Roles -> Gameplay).
+- `src/styles/`: Sistema de diseño basado en utilidades de Tailwind.
+- `Dockerfile` & `docker-compose.yml`: Mi infraestructura definida como código.
+
+---
+
+## Próximos Pasos
+
+- [ ] Implementar **WebSockets** para permitir partidas multijugador en tiempo real desde múltiples dispositivos.
+- [ ] Añadir soporte para **i18n** (Internacionalización).
+- [ ] Integrar tests E2E con **Playwright** para validar la experiencia de usuario y la lógica de juego.
