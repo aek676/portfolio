@@ -9,19 +9,20 @@ import {
 } from '@/components/ui/navigation-menu';
 
 const pathName = Astro.url.pathname;
+const base = import.meta.env.BASE_URL;
 ---
 
 <header
   class="fixed top-0 w-full z-50 p-6 flex justify-between items-center bg-(--color-glass-bg) backdrop-blur-md border-b border-(--color-glass-border) text-(--color-text-main) transition-all duration-300"
 >
   {
-    pathName === '/' ? (
+    pathName === base || pathName === base.slice(0, -1) ? (
       <span class="text-2xl font-bold tracking-tighter italic hover:opacity-80 transition-opacity">
         ANASS<span class="text-emerald-500">.</span>
       </span>
     ) : (
       <a
-        href="/"
+        href={base}
         class="text-2xl font-bold tracking-tighter italic hover:opacity-80 transition-opacity"
       >
         ANASS<span class="text-emerald-500">.</span>
@@ -33,7 +34,7 @@ const pathName = Astro.url.pathname;
     <NavigationMenuList class="gap-6">
       <NavigationMenuItem>
         <NavigationMenuLink
-          href="/"
+          href={base}
           variant="trigger"
           class="uppercase tracking-widest hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
         >
@@ -42,7 +43,7 @@ const pathName = Astro.url.pathname;
       </NavigationMenuItem>
       <NavigationMenuItem>
         <NavigationMenuLink
-          href="/projects"
+          href={`${base}projects`}
           variant="trigger"
           class="uppercase tracking-widest hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
         >
@@ -51,7 +52,7 @@ const pathName = Astro.url.pathname;
       </NavigationMenuItem>
       <NavigationMenuItem>
         <NavigationMenuLink
-          href="/about"
+          href={`${base}about`}
           variant="trigger"
           class="uppercase tracking-widest hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
         >
@@ -84,7 +85,7 @@ const pathName = Astro.url.pathname;
           <ul class="flex flex-col items-center space-y-6">
             <li>
               <NavigationMenuLink
-                href="/"
+                href={base}
                 class="text-xl uppercase tracking-widest font-semibold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
               >
                 Inicio
@@ -92,7 +93,7 @@ const pathName = Astro.url.pathname;
             </li>
             <li>
               <NavigationMenuLink
-                href="/projects"
+                href={`${base}projects`}
                 class="text-xl uppercase tracking-widest font-semibold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
               >
                 Proyectos
@@ -100,7 +101,7 @@ const pathName = Astro.url.pathname;
             </li>
             <li>
               <NavigationMenuLink
-                href="/sobre-mi"
+                href={`${base}about`}
                 class="text-xl uppercase tracking-widest font-semibold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
               >
                 Sobre mí

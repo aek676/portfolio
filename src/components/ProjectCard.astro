@@ -1,6 +1,6 @@
 ---
-import type { Tag } from "@/types";
-import TechBadge from "./TechBadge.astro";
+import type { Tag } from '@/types';
+import TechBadge from './TechBadge.astro';
 
 interface Props {
   id: string;
@@ -10,6 +10,7 @@ interface Props {
 }
 
 const { id, title, description, tags } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <article
@@ -34,7 +35,7 @@ const { id, title, description, tags } = Astro.props;
     }
   </div>
   <a
-    href={`/projects/${id}`}
+    href={`${base}projects/${id}`}
     class="inline-block text-emerald-600 font-bold hover:underline"
     >Ver Código &rarr;
   </a>
