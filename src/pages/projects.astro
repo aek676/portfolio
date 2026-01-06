@@ -27,6 +27,7 @@ const allProjects = await getCollection("projects");
                 description={project.data.description}
                 image={project.data.image}
                 tags={project.data.tags}
+                loading="eager"
               />
             ))
           }

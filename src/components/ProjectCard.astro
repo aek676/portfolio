@@ -9,9 +9,10 @@ interface Props {
   description: string;
   image: ImageMetadata;
   tags: Tag[];
+  loading?: "lazy" | "eager";
 }
 
-const { id, title, description, image, tags } = Astro.props;
+const { id, title, description, image, tags, loading = "lazy" } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -25,7 +26,7 @@ const base = import.meta.env.BASE_URL;
       src={image}
       alt={`Captura de pantalla de ${title}`}
       class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-      loading="eager"
+      loading={loading}
     />
   </div>
   <h3 class="text-2xl font-bold mb-2 text-(--color-text-main)">
