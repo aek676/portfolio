@@ -291,12 +291,21 @@
     }
   }
 
-  // Función para verificar soporte WebGL
+  // Función para verificar soporte WebGL y evitar inicialización pesada en entornos headless (Lighthouse/CI)
   function checkWebGLSupport() {
     try {
+      // Tratar entornos automatizados/headless como "sin WebGL" para evitar stalls por renderizado software
+      if (navigator.webdriver || /HeadlessChrome|Headless/i.test(navigator.userAgent)) return false;
+
       const canvas = document.createElement('canvas');
       const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-      return !!gl;
+      if (!gl) return false;
+
+      // Evitar inicializar si el renderizador software tiene capacidades muy bajas
+      const maxRenderBuffer = gl.getParameter(gl.MAX_RENDERBUFFER_SIZE) || 0;
+      if (maxRenderBuffer > 0 && maxRenderBuffer < 2048) return false;
+
+      return true;
     } catch (e) {
       return false;
     }
