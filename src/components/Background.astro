@@ -154,65 +154,73 @@
 
     detectCapabilities() {
       const canvas = document.createElement('canvas');
-      const gl = (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')) as WebGLRenderingContext | null;
-      
+      const gl = (canvas.getContext('webgl') ||
+        canvas.getContext(
+          'experimental-webgl'
+        )) as WebGLRenderingContext | null;
+
       return {
         // Detección de GPU
         gpu: {
           vendor: gl?.getParameter(gl.VENDOR) || 'unknown',
           renderer: gl?.getParameter(gl.RENDERER) || 'unknown',
           maxTextureSize: gl?.getParameter(gl.MAX_TEXTURE_SIZE) || 0,
-          maxVertexTextureImageUnits: gl?.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS) || 0
+          maxVertexTextureImageUnits:
+            gl?.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS) || 0,
         },
         // Detección de hardware
         hardware: {
           cores: navigator.hardwareConcurrency || 4,
           deviceMemory: (navigator as any).deviceMemory || 4,
-          pixelRatio: window.devicePixelRatio || 1
+          pixelRatio: window.devicePixelRatio || 1,
         },
         // Detección de dispositivo
         device: {
-          isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent),
-          isTablet: /iPad|Android/i.test(navigator.userAgent) && window.innerWidth > 768,
-          screenArea: window.innerWidth * window.innerHeight
+          isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+            navigator.userAgent
+          ),
+          isTablet:
+            /iPad|Android/i.test(navigator.userAgent) &&
+            window.innerWidth > 768,
+          screenArea: window.innerWidth * window.innerHeight,
         },
         // Detección de WebGL
         webgl: {
           supported: !!gl,
           version: gl?.getParameter(gl.VERSION) || 'unknown',
-          maxRenderBufferSize: gl?.getParameter(gl.MAX_RENDERBUFFER_SIZE) || 0
-        }
+          maxRenderBufferSize: gl?.getParameter(gl.MAX_RENDERBUFFER_SIZE) || 0,
+        },
       };
     }
 
     calculatePerformanceTier(): string {
       const { gpu, hardware, device, webgl } = this.capabilities;
-      
+
       let score = 0;
-      
+
       // Puntuación por GPU
       if (gpu.maxTextureSize > 4096) score += 3;
       else if (gpu.maxTextureSize > 2048) score += 2;
       else score += 1;
-      
+
       // Puntuación por CPU
       if (hardware.cores >= 8) score += 3;
       else if (hardware.cores >= 4) score += 2;
       else score += 1;
-      
+
       // Puntuación por memoria
       if (hardware.deviceMemory >= 8) score += 3;
       else if (hardware.deviceMemory >= 4) score += 2;
       else score += 1;
-      
+
       // Penalización por móvil
       if (device.isMobile) score -= 2;
       if (device.isTablet) score -= 1;
-      
+
       // Puntuación por WebGL
       if (webgl.maxRenderBufferSize > 4096) score += 2;
       else score += 1;
-      
+
       // Determinar tier
       if (score >= 10) return 'high';
       if (score >= 6) return 'medium';
@@ -230,7 +238,7 @@
       antialiasing: true,
       lodEnabled: true,
       windComplexity: 1.0,
-      renderDistance: 90
+      renderDistance: 90,
     },
     medium: {
       grassCount: 100000,
@@ -239,7 +247,7 @@
       antialiasing: true,
       lodEnabled: true,
       windComplexity: 0.7,
-      renderDistance: 60
+      renderDistance: 60,
     },
     low: {
       grassCount: 50000,
@@ -248,7 +256,7 @@
       antialiasing: false,
       lodEnabled: false,
       windComplexity: 0.5,
-      renderDistance: 40
+      renderDistance: 40,
     },
     minimal: {
       grassCount: 20000,
@@ -257,8 +265,8 @@
       antialiasing: false,
       lodEnabled: false,
       windComplexity: 0.3,
-      renderDistance: 30
-    }
+      renderDistance: 30,
+    },
   };
 
   // Sistema de monitoreo de FPS
@@ -272,17 +280,21 @@
       const now = performance.now();
       const delta = now - this.lastFrameTime;
       this.lastFrameTime = now;
-      
+
       this.frames.push(1000 / delta);
       if (this.frames.length > 60) {
         this.frames.shift();
       }
-      
-      this.fps = this.frames.reduce((a: number, b: number) => a + b, 0) / this.frames.length;
-      
+
+      this.fps =
+        this.frames.reduce((a: number, b: number) => a + b, 0) /
+        this.frames.length;
+
       // Notificar callbacks si el FPS es bajo
       if (this.fps < 30 && this.frames.length === 60) {
-        this.callbacks.forEach((callback: (fps: number) => void) => callback(this.fps));
+        this.callbacks.forEach((callback: (fps: number) => void) =>
+          callback(this.fps)
+        );
       }
     }
 
@@ -295,10 +307,15 @@
   function checkWebGLSupport() {
     try {
       // Tratar entornos automatizados/headless como "sin WebGL" para evitar stalls por renderizado software
-      if (navigator.webdriver || /HeadlessChrome|Headless/i.test(navigator.userAgent)) return false;
+      if (
+        navigator.webdriver ||
+        /HeadlessChrome|Headless/i.test(navigator.userAgent)
+      )
+        return false;
 
       const canvas = document.createElement('canvas');
-      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      const gl =
+        canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
       if (!gl) return false;
 
       // Evitar inicializar si el renderizador software tiene capacidades muy bajas
@@ -315,9 +332,9 @@
   function setupClouds(config: typeof PERFORMANCE_CONFIGS.high): void {
     const skyContainer = document.querySelector('.sky-container');
     if (!skyContainer) return;
-    
+
     const clouds = document.querySelectorAll('.cloud');
-    
+
     // Añadir clase de rendimiento
     if (config.grassCount <= 50000) {
       skyContainer.classList.add('low-performance');
@@ -325,11 +342,15 @@
     if (config.grassCount <= 20000) {
       skyContainer.classList.add('minimal-performance');
     }
-    
+
     // Ocultar nubes según configuración
     clouds.forEach((cloud: Element, index: number) => {
-      (cloud as HTMLElement).classList.remove('hidden-medium', 'hidden-low', 'hidden-minimal');
-      
+      (cloud as HTMLElement).classList.remove(
+        'hidden-medium',
+        'hidden-low',
+        'hidden-minimal'
+      );
+
       if (index >= config.cloudCount) {
         if (config.grassCount <= 100000) {
           (cloud as HTMLElement).classList.add('hidden-medium');
@@ -441,15 +462,25 @@
       // Inicializar sistemas de rendimiento
       const deviceDetector = new DevicePerformanceDetector();
       const fpsMonitor = new FPSMonitor();
-      const performanceConfig = PERFORMANCE_CONFIGS[deviceDetector.performanceTier as keyof typeof PERFORMANCE_CONFIGS];
+      const performanceConfig =
+        PERFORMANCE_CONFIGS[
+          deviceDetector.performanceTier as keyof typeof PERFORMANCE_CONFIGS
+        ];
 
-      console.log(`Performance Tier: ${deviceDetector.performanceTier}`, performanceConfig);
+      console.log(
+        `Performance Tier: ${deviceDetector.performanceTier}`,
+        performanceConfig
+      );
 
       const scene = new THREE.Scene();
 
       // Niebla ajustada para la profundidad - COLOR VERDE
       const horizonColor = 0x84a95c;
-      scene.fog = new THREE.Fog(horizonColor, 15, performanceConfig.renderDistance);
+      scene.fog = new THREE.Fog(
+        horizonColor,
+        15,
+        performanceConfig.renderDistance
+      );
 
       const camera = new THREE.PerspectiveCamera(
         60,
@@ -464,14 +495,17 @@
       const renderer = new THREE.WebGLRenderer({
         antialias: performanceConfig.antialiasing,
         alpha: true,
-        powerPreference: 'high-performance'
+        powerPreference: 'high-performance',
       });
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(performanceConfig.pixelRatio);
       renderer.domElement.setAttribute('data-engine', 'three');
 
       // Optimizaciones adicionales para dispositivos bajos
-      if (deviceDetector.performanceTier === 'low' || deviceDetector.performanceTier === 'minimal') {
+      if (
+        deviceDetector.performanceTier === 'low' ||
+        deviceDetector.performanceTier === 'minimal'
+      ) {
         renderer.toneMapping = THREE.NoToneMapping;
         renderer.shadowMap.enabled = false;
         renderer.info.autoReset = false;
@@ -571,15 +605,16 @@
 
       const animate = () => {
         requestAnimationFrame(animate);
-        
+
         // Actualizar FPS monitor
         fpsMonitor.update();
-        
+
         const time = performance.now();
         // Actualizar uniforms con configuración adaptativa
         if (material.uniforms) {
           material.uniforms.uTime.value = time * 0.001;
-          material.uniforms.uWindComplexity.value = performanceConfig.windComplexity;
+          material.uniforms.uWindComplexity.value =
+            performanceConfig.windComplexity;
         }
         renderer.render(scene, camera);
       };
@@ -589,7 +624,7 @@
       // Fallback a CSS-only
       document.body.classList.add('no-webgl');
       setupClouds({ cloudCount: 1, grassCount: 0 } as any);
-      
+
       const err = document.createElement('div');
       err.style.cssText =
         'position:fixed;top:0;left:0;background:red;color:white;padding:20px;z-index:9999';
