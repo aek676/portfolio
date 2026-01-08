@@ -1,20 +1,21 @@
 ---
-import ProjectCard from '@/components/ProjectCard.astro';
-import { Icon } from 'astro-icon/components';
-import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
+import ProjectCard from "@/components/ProjectCard.astro";
+import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Background from "@/components/Background.astro";
 
-const projects = await getCollection('projects');
-const idsProjects = ['project1', 'project2', 'project3'];
+const projects = await getCollection("projects");
+const idsProjects = ["project1", "project2", "project3"];
 const keyProjects = projects.filter((project) =>
-  idsProjects.includes(project.id)
+  idsProjects.includes(project.id),
 );
 
 const base = import.meta.env.BASE_URL;
 ---
 
 <Layout title="Anass - Software Engineer Portfolio">
-  <!-- <Background /> -->
+  <Background />
   <section
     id="inicio"
     class="h-screen flex flex-col justify-center items-center text-center px-4 relative"
