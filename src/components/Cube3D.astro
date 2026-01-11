@@ -1,0 +1,127 @@
+---
+import { Image } from "astro:assets";
+import ProfileImage from "@/assets/images/profile.png";
+
+const faceClasses = "absolute w-full h-full bg-black/90";
+const imageClasses = "w-full h-full object-cover";
+---
+
+<div
+  class="perspective-container flex justify-center items-center py-10 md:py-20"
+>
+  <div class="cube relative w-64 h-64 md:w-80 md:h-80">
+    <div class={`face front ${faceClasses}`}>
+      <Image
+        src={ProfileImage}
+        alt="Perfil Frente"
+        class={imageClasses}
+        loading="eager"
+      />
+    </div>
+
+    <div class={`face back ${faceClasses}`}>
+      <Image
+        src={ProfileImage}
+        alt="Perfil Atrás"
+        class={imageClasses}
+        loading="eager"
+      />
+    </div>
+
+    <div class={`face right ${faceClasses}`}>
+      <Image
+        src={ProfileImage}
+        alt="Perfil Derecha"
+        class={imageClasses}
+        loading="eager"
+      />
+    </div>
+
+    <div class={`face left ${faceClasses}`}>
+      <Image
+        src={ProfileImage}
+        alt="Perfil Izquierda"
+        class={imageClasses}
+        loading="eager"
+      />
+    </div>
+
+    <div class={`face top ${faceClasses}`}>
+      <Image
+        src={ProfileImage}
+        alt="Perfil Arriba"
+        class={imageClasses}
+        loading="eager"
+      />
+    </div>
+
+    <div class={`face bottom ${faceClasses}`}>
+      <Image
+        src={ProfileImage}
+        alt="Perfil Abajo"
+        class={imageClasses}
+        loading="eager"
+      />
+    </div>
+  </div>
+</div>
+
+<style>
+  .perspective-container {
+    perspective: 1000px;
+  }
+
+  .cube {
+    transform-style: preserve-3d;
+    animation: rotate 15s infinite linear;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotateX(0deg) rotateY(0deg);
+    }
+    to {
+      transform: rotateX(360deg) rotateY(360deg);
+    }
+  }
+
+  .face.front {
+    transform: rotateY(0deg) translateZ(8rem);
+  }
+  .face.back {
+    transform: rotateY(180deg) translateZ(8rem);
+  }
+  .face.right {
+    transform: rotateY(90deg) translateZ(8rem);
+  }
+  .face.left {
+    transform: rotateY(-90deg) translateZ(8rem);
+  }
+  .face.top {
+    transform: rotateX(90deg) translateZ(8rem);
+  }
+  .face.bottom {
+    transform: rotateX(-90deg) translateZ(8rem);
+  }
+
+  @media (min-width: 768px) {
+    .face.front {
+      transform: rotateY(0deg) translateZ(10rem);
+    }
+    .face.back {
+      transform: rotateY(180deg) translateZ(10rem);
+    }
+    .face.right {
+      transform: rotateY(90deg) translateZ(10rem);
+    }
+    .face.left {
+      transform: rotateY(-90deg) translateZ(10rem);
+    }
+    .face.top {
+      transform: rotateX(90deg) translateZ(10rem);
+    }
+    .face.bottom {
+      transform: rotateX(-90deg) translateZ(10rem);
+    }
+  }
+</style>

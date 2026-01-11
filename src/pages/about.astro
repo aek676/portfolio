@@ -1,16 +1,20 @@
 ---
+import TechBadge from "@/components/TechBadge.astro";
+import type { TagKey } from "@/lib/tags";
 import Background from "../components/Background.astro";
+import Cube3D from "../components/Cube3D.astro";
 import Layout from "../layouts/Layout.astro";
+
+const tags: TagKey[] = ["typescript", "react", "astro", "docker", "rust"];
 ---
 
 <Layout title="Sobre Mí - Software Engineer">
   <Background />
-  <section class="min-h-screen pt-32 px-6 flex items-center justify-center">
-    <div
-      class="max-w-5xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
-    >
-      <!-- Texto Bio -->
-      <div class="order-2 md:order-1 section-fade">
+  <section
+    class="relative min-h-screen pt-32 px-6 flex items-center justify-center"
+  >
+    <div class="max-w-5xl w-full flex flex-col md:flex-row items-center gap-8">
+      <div class="order-2 md:order-1 glass-card p-10 md:p-12 flex-1">
         <h1
           class="text-4xl md:text-5xl font-bold mb-6 text-(--color-text-main)"
         >
@@ -18,18 +22,19 @@ import Layout from "../layouts/Layout.astro";
             class="text-emerald-600 block text-lg uppercase tracking-widest mb-2 font-medium"
             >Sobre Mí</span
           >
-          Ingeniero de Software & <br /> Arquitecto de Soluciones
+          Ingeniero Software
         </h1>
+
         <div
           class="space-y-6 text-(--color-text-muted) text-lg leading-relaxed"
         >
           <p>
-            Hola, soy un apasionado de la tecnología con más de 5 años de
-            experiencia construyendo sistemas escalables y experiencias
-            digitales inmersivas.
+            Hola, soy Anass El Jabiry, un apasionado de la tecnología desde
+            pequeño con experiencia construyendo sistemas escalables y
+            experiencias digitales inmersivas.
           </p>
           <p>
-            Mi enfoque combina la precisión de la ingeniería de backend con la
+            Mi enfoque combina la eficiencia algorítmica del backend con la
             creatividad del desarrollo frontend, asegurando que cada línea de
             código no solo funcione, sino que aporte valor real.
           </p>
@@ -39,48 +44,20 @@ import Layout from "../layouts/Layout.astro";
           </p>
         </div>
 
-        <div class="mt-8 pt-8 border-t border-(--color-glass-border)">
-          <h3 class="text-xl font-bold mb-4 text-(--color-text-main)">
+        <div class="mt-8 pt-8 border-t border-(--color-primary)">
+          <h2 class="text-xl font-bold mb-4 text-(--color-text-main)">
             Stack Tecnológico
-          </h3>
+          </h2>
           <div class="flex flex-wrap gap-2">
-            <span
-              class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
-              >TypeScript</span
-            >
-            <span
-              class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
-              >Rust</span
-            >
-            <span
-              class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
-              >React / Astro</span
-            >
-            <span
-              class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
-              >Kubernetes</span
-            >
-            <span
-              class="px-3 py-1 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-full text-sm text-slate-700"
-              >GraphQL</span
-            >
+            {tags.map((tag) => <TechBadge tagKey={tag} />)}
           </div>
         </div>
       </div>
 
-      <!-- Imagen / Avatar Placeholder -->
-      <div class="order-1 md:order-2 flex justify-center section-fade">
-        <div class="relative w-64 h-64 md:w-80 md:h-80">
-          <div
-            class="absolute inset-0 bg-emerald-500 rounded-full blur-3xl opacity-20 animate-pulse"
-          >
-          </div>
-          <div
-            class="relative w-full h-full glass-card rounded-full overflow-hidden border-4 border-white/30 flex items-center justify-center bg-slate-100"
-          >
-            <span class="text-8xl">👨‍💻</span>
-          </div>
-        </div>
+      <div
+        class="order-1 md:order-2 flex justify-center md:justify-end transform-3d md:ml-8"
+      >
+        <Cube3D />
       </div>
     </div>
   </section>
