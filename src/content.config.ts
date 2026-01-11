@@ -1,7 +1,7 @@
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 import { defineCollection } from "astro:content";
-import type { Tag } from "@/types";
+import type { TagKey } from "./lib/tags";
 
 const projects = defineCollection({
   loader: glob({ pattern: "**/[^_]*.mdx", base: "./src/projects" }),
@@ -10,7 +10,7 @@ const projects = defineCollection({
       title: z.string(),
       description: z.string(),
       image: image(),
-      tags: z.array(z.custom<Tag>()),
+      tags: z.array(z.custom<TagKey>()),
       github: z.string().url(),
       demo: z.string().url().optional(),
     }),
