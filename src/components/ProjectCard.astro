@@ -1,5 +1,5 @@
 ---
-import type { Tag } from "@/types";
+import type { TagKey } from "@/lib/tags";
 import TechBadge from "./TechBadge.astro";
 import { Image } from "astro:assets";
 
@@ -8,7 +8,7 @@ interface Props {
   title: string;
   description: string;
   image: ImageMetadata;
-  tags: Tag[];
+  tags: TagKey[];
   loading?: "lazy" | "eager";
 }
 
@@ -36,11 +36,7 @@ const base = import.meta.env.BASE_URL;
     {description}
   </p>
   <div class="flex flex-wrap gap-2 mb-6">
-    {
-      tags.map((tag) => (
-        <TechBadge name={tag.name} icon={tag.icon} color={tag.color} />
-      ))
-    }
+    {tags.map((tag) => <TechBadge tagKey={tag} />)}
   </div>
   <a
     href={`${base}/projects/${id}`}

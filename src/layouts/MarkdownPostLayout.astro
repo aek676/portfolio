@@ -47,11 +47,7 @@ const { frontmatter } = Astro.props;
             stack tecnológico
           </h4>
           <div class="flex flex-wrap gap-3">
-            {
-              frontmatter.tags.map((tag) => (
-                <TechBadge name={tag.name} icon={tag.icon} color={tag.color} />
-              ))
-            }
+            {frontmatter.tags.map((tag) => <TechBadge tagKey={tag} />)}
           </div>
         </div>
       </div>
