@@ -1,0 +1,57 @@
+---
+import TechBadge from "@/components/TechBadge.astro";
+import type { TagKey } from "@/lib/tags";
+import Background from "@/components/Background.astro";
+import Layout from "@/layouts/Layout.astro";
+
+const tags: TagKey[] = ["java", "react", "astro", "docker", "rust"];
+---
+
+<Layout title="Sobre Mí - Anass">
+  <Background />
+  <section
+    class="relative min-h-screen pt-32 px-6 flex items-center justify-center"
+  >
+    <div class="max-w-5xl w-full flex flex-col md:flex-row items-center gap-8">
+      <div class="order-2 md:order-1 glass-card p-10 md:p-12 flex-1">
+        <h1
+          class="text-4xl md:text-5xl font-bold mb-6 text-(--color-text-main)"
+        >
+          <span
+            class="text-emerald-600 block text-lg uppercase tracking-widest mb-2 font-medium"
+            >Sobre Mí</span
+          >
+          Software Engineer
+        </h1>
+
+        <div
+          class="space-y-6 text-(--color-text-muted) text-lg leading-relaxed"
+        >
+          <p>
+            Hola, soy Anass El Jabiry, un apasionado de la tecnología desde
+            pequeño con experiencia construyendo sistemas escalables y
+            experiencias digitales inmersivas.
+          </p>
+          <p>
+            Mi enfoque combina la eficiencia algorítmica del backend con la
+            creatividad del desarrollo frontend, asegurando que cada línea de
+            código no solo funcione, sino que aporte valor real.
+          </p>
+          <p>
+            Actualmente me especializo en arquitecturas cloud-native,
+            optimización de rendimiento y diseño de interfaces modernas.
+          </p>
+        </div>
+
+        <div class="mt-8 pt-8 border-t border-(--color-primary)">
+          <h2 class="text-xl font-bold mb-4 text-(--color-text-main)">
+            Stack Tecnológico
+          </h2>
+          <div class="flex flex-wrap gap-2">
+            {tags.map((tag) => <TechBadge tagKey={tag} />)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

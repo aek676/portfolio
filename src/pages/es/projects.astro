@@ -1,0 +1,38 @@
+---
+import Background from "@/components/Background.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const allProjects = await getCollection("projects");
+---
+
+<Layout title="Proyectos - Anass">
+  <Background />
+  <section class="min-h-screen pt-32 px-6">
+    <div class="max-w-6xl mx-auto">
+      <section>
+        <h1
+          class="text-4xl md:text-5xl font-bold mb-12 text-(--color-text-main) flex items-center"
+        >
+          <span class="w-12 h-0.75 bg-emerald-500 mr-4"></span> Proyectos
+        </h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {
+            allProjects.map((project) => (
+              <ProjectCard
+                id={project.id}
+                title={project.data.title}
+                description={project.data.description}
+                image={project.data.image}
+                tags={project.data.tags}
+                loading="eager"
+              />
+            ))
+          }
+        </div>
+      </section>
+    </div>
+  </section>
+</Layout>
