@@ -28,8 +28,8 @@ const base = import.meta.env.BASE_URL;
     <p
       class="text-lg md:text-xl text-(--color-text-muted) max-w-2xl font-light mb-8"
     >
-      Construyendo el futuro digital con código limpio, arquitectura escalable y
-      diseño inmersivo.
+      Building the digital future with clean code, scalable architecture, and
+      immersive design.
     </p>
 
     <div class="flex flex-col items-center gap-8">
@@ -39,7 +39,7 @@ const base = import.meta.env.BASE_URL;
           target="_blank"
           rel="noopener noreferrer"
           class="text-(--color-text-main) hover:text-emerald-500 transition-colors transform hover:scale-110"
-          aria-label="Ir a Github"
+          aria-label="Go to GitHub"
         >
           <Icon name="mdi:github" class="w-9 h-9" />
         </a>
@@ -48,14 +48,14 @@ const base = import.meta.env.BASE_URL;
           target="_blank"
           rel="noopener noreferrer"
           class="text-(--color-text-main) hover:text-emerald-500 transition-colors transform hover:scale-110"
-          aria-label="Ir a Linkedin"
+          aria-label="Go to LinkedIn"
         >
           <Icon name="mdi:linkedin" class="w-10 h-10" />
         </a>
         <a
           href="mailto:anassanass2011@hotmail.com"
           class="text-(--color-text-main) hover:text-emerald-500 transition-colors transform hover:scale-110"
-          aria-label="Enviar correo"
+          aria-label="Send email"
         >
           <Icon name="mdi:email" class="w-9 h-9" />
         </a>
@@ -65,12 +65,12 @@ const base = import.meta.env.BASE_URL;
         <a
           href={`${base}/projects`}
           class="px-8 py-3 bg-emerald-500 text-black font-bold rounded-full hover:bg-emerald-400 transition-all duration-300 shadow-lg shadow-emerald-500/20"
-          >Ver Proyectos</a
+          >See Projects</a
         >
         <a
           href={`${base}/about`}
           class="px-8 py-3 border-3 border-emerald-500/45 text-(--color-text-main) font-semibold rounded-full hover:bg-emerald-500/10 transition-all"
-          >Sobre mí</a
+          >About me</a
         >
       </div>
     </div>
@@ -82,12 +82,12 @@ const base = import.meta.env.BASE_URL;
         <h2
           class="text-3xl md:text-4xl font-bold text-(--color-text-main) flex items-center"
         >
-          <span class="w-12 h-0.75 bg-emerald-500 mr-4"></span> Proyectos Destacados
+          <span class="w-12 h-0.75 bg-emerald-500 mr-4"></span> Featured Projects
         </h2>
         <a
-          href=`${base}/projects`
+          href={`${base}/projects`}
           class="hidden md:block text-emerald-600 font-bold hover:underline"
-          >Ver todos &rarr;</a
+          >See all &rarr;</a
         >
       </div>
 
@@ -108,9 +108,9 @@ const base = import.meta.env.BASE_URL;
 
       <div class="mt-8 text-center md:hidden">
         <a
-          href=`${base}/projects`
+          href={`${base}/projects`}
           class="text-emerald-600 font-bold hover:underline"
-          >Ver todos los proyectos &rarr;</a
+          >See all projects &rarr;</a
         >
       </div>
     </div>

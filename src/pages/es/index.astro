@@ -1,0 +1,118 @@
+---
+import ProjectCard from "@/components/ProjectCard.astro";
+import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Background from "@/components/Background.astro";
+
+const projects = await getCollection("projects");
+const idsProjects = ["project1", "project2", "project3"];
+const keyProjects = projects.filter((project) =>
+  idsProjects.includes(project.id),
+);
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout title="Anass">
+  <Background />
+  <section
+    id="inicio"
+    class="h-screen flex flex-col justify-center items-center text-center px-4 relative"
+  >
+    <h1
+      class="text-6xl md:text-8xl font-black mb-4 tracking-tighter leading-none text-gradient drop-shadow-2xl"
+    >
+      SOFTWARE <br /><span>ENGINEER.</span>
+    </h1>
+    <p
+      class="text-lg md:text-xl text-(--color-text-muted) max-w-2xl font-light mb-8"
+    >
+      Construyendo el futuro digital con código limpio, arquitectura escalable y
+      diseño inmersivo.
+    </p>
+
+    <div class="flex flex-col items-center gap-8">
+      <div class="flex space-x-6">
+        <a
+          href="https://github.com/aek676"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-(--color-text-main) hover:text-emerald-500 transition-colors transform hover:scale-110"
+          aria-label="Ir a Github"
+        >
+          <Icon name="mdi:github" class="w-9 h-9" />
+        </a>
+        <a
+          href="https://linkedin.com/in/anass-el-jabiry-kaddir-993989328"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-(--color-text-main) hover:text-emerald-500 transition-colors transform hover:scale-110"
+          aria-label="Ir a Linkedin"
+        >
+          <Icon name="mdi:linkedin" class="w-10 h-10" />
+        </a>
+        <a
+          href="mailto:anassanass2011@hotmail.com"
+          class="text-(--color-text-main) hover:text-emerald-500 transition-colors transform hover:scale-110"
+          aria-label="Enviar correo"
+        >
+          <Icon name="mdi:email" class="w-9 h-9" />
+        </a>
+      </div>
+
+      <div class="flex space-x-4">
+        <a
+          href={`${base}/projects`}
+          class="px-8 py-3 bg-emerald-500 text-black font-bold rounded-full hover:bg-emerald-400 transition-all duration-300 shadow-lg shadow-emerald-500/20"
+          >Ver Proyectos</a
+        >
+        <a
+          href={`${base}/about`}
+          class="px-8 py-3 border-3 border-emerald-500/45 text-(--color-text-main) font-semibold rounded-full hover:bg-emerald-500/10 transition-all"
+          >Sobre mí</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <section id="proyectos" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex justify-between items-end mb-12">
+        <h2
+          class="text-3xl md:text-4xl font-bold text-(--color-text-main) flex items-center"
+        >
+          <span class="w-12 h-0.75 bg-emerald-500 mr-4"></span> Proyectos Destacados
+        </h2>
+        <a
+          href=`${base}/projects`
+          class="hidden md:block text-emerald-600 font-bold hover:underline"
+          >Ver todos &rarr;</a
+        >
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          keyProjects.map((project) => (
+            <ProjectCard
+              id={project.id}
+              title={project.data.title}
+              description={project.data.description}
+              image={project.data.image}
+              tags={project.data.tags}
+              loading="lazy"
+            />
+          ))
+        }
+      </div>
+
+      <div class="mt-8 text-center md:hidden">
+        <a
+          href=`${base}/projects`
+          class="text-emerald-600 font-bold hover:underline"
+          >Ver todos los proyectos &rarr;</a
+        >
+      </div>
+    </div>
+  </section>
+</Layout>
