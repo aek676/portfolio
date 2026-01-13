@@ -2,7 +2,6 @@
 import TechBadge from "@/components/TechBadge.astro";
 import type { TagKey } from "@/lib/tags";
 import Background from "../components/Background.astro";
-import Cube3D from "../components/Cube3D.astro";
 import Layout from "../layouts/Layout.astro";
 
 const tags: TagKey[] = ["java", "react", "astro", "docker", "rust"];
@@ -52,12 +51,6 @@ const tags: TagKey[] = ["java", "react", "astro", "docker", "rust"];
             {tags.map((tag) => <TechBadge tagKey={tag} />)}
           </div>
         </div>
-      </div>
-
-      <div
-        class="order-1 md:order-2 flex justify-center md:justify-end transform-3d md:ml-8"
-      >
-        <Cube3D />
       </div>
     </div>
   </section>
