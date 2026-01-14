@@ -7,24 +7,43 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import type { Lang } from "@/i18n/ui";
+import { useTranslations } from "@/i18n/utils";
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 const pathName = Astro.url.pathname;
-const base = import.meta.env.BASE_URL;
+const lang = (Astro.currentLocale || "es") as Lang;
+
+const normalize = (s: string | undefined) => (s ? s.replace(/\/+$/, "") : "");
+
+const t = useTranslations(lang);
+const homeUrl = getRelativeLocaleUrl(lang);
+const navItems = [
+  { label: t("nav.home"), href: homeUrl },
+  { label: t("nav.projects"), href: getRelativeLocaleUrl(lang, "projects") },
+  { label: t("nav.about"), href: getRelativeLocaleUrl(lang, "about") },
+];
+
+const isHome = normalize(pathName) === normalize(homeUrl);
+
+const logoClass =
+  "text-2xl font-bold tracking-tighter italic hover:opacity-80 transition-opacity";
+const desktopLinkClass =
+  "uppercase tracking-widest hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent";
+const mobileLinkClass =
+  "text-xl uppercase tracking-widest font-semibold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent";
 ---
 
 <header
   class="fixed top-0 w-full z-50 p-6 flex justify-between items-center bg-(--color-glass-bg) backdrop-blur-md border-b border-(--color-glass-border) text-(--color-text-main) transition-all duration-300"
 >
   {
-    pathName === base || pathName === base.slice(0, -1) ? (
-      <span class="text-2xl font-bold tracking-tighter italic hover:opacity-80 transition-opacity">
+    isHome ? (
+      <span class={logoClass}>
         ANASS<span class="text-emerald-500">.</span>
       </span>
     ) : (
-      <a
-        href={base}
-        class="text-2xl font-bold tracking-tighter italic hover:opacity-80 transition-opacity"
-      >
+      <a href={homeUrl} class={logoClass}>
         ANASS<span class="text-emerald-500">.</span>
       </a>
     )
@@ -32,33 +51,19 @@ const base = import.meta.env.BASE_URL;
 
   <NavigationMenu class="hidden md:flex">
     <NavigationMenuList class="gap-6">
-      <NavigationMenuItem>
-        <NavigationMenuLink
-          href={base}
-          variant="trigger"
-          class="uppercase tracking-widest hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
-        >
-          Inicio
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-      <NavigationMenuItem>
-        <NavigationMenuLink
-          href={`${base}/projects`}
-          variant="trigger"
-          class="uppercase tracking-widest hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
-        >
-          Proyectos
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-      <NavigationMenuItem>
-        <NavigationMenuLink
-          href={`${base}/about`}
-          variant="trigger"
-          class="uppercase tracking-widest hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
-        >
-          Sobre mí
-        </NavigationMenuLink>
-      </NavigationMenuItem>
+      {
+        navItems.map((item) => (
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              href={item.href}
+              variant="trigger"
+              class={desktopLinkClass}
+            >
+              {item.label}
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        ))
+      }
     </NavigationMenuList>
   </NavigationMenu>
 
@@ -74,30 +79,15 @@ const base = import.meta.env.BASE_URL;
           class="fixed top-22 left-0 w-full h-auto bg-(--color-glass-bg) backdrop-blur-xl border-b border-(--color-glass-border) p-8 shadow-2xl transition-all duration-500 ease-in-out -translate-y-4 opacity-0 group-focus-within/navigation-menu-item:translate-y-0 group-focus-within/navigation-menu-item:opacity-100"
         >
           <ul class="flex flex-col items-center space-y-6">
-            <li>
-              <NavigationMenuLink
-                href={base}
-                class="text-xl uppercase tracking-widest font-semibold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
-              >
-                Inicio
-              </NavigationMenuLink>
-            </li>
-            <li>
-              <NavigationMenuLink
-                href={`${base}/projects`}
-                class="text-xl uppercase tracking-widest font-semibold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
-              >
-                Proyectos
-              </NavigationMenuLink>
-            </li>
-            <li>
-              <NavigationMenuLink
-                href={`${base}/about`}
-                class="text-xl uppercase tracking-widest font-semibold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent"
-              >
-                Sobre mí
-              </NavigationMenuLink>
-            </li>
+            {
+              navItems.map((item) => (
+                <li>
+                  <NavigationMenuLink href={item.href} class={mobileLinkClass}>
+                    {item.label}
+                  </NavigationMenuLink>
+                </li>
+              ))
+            }
           </ul>
         </NavigationMenuContent>
       </NavigationMenuItem>
