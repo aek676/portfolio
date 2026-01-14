@@ -1,7 +1,9 @@
 ---
-import { ExternalLink, Github } from "@lucide/astro";
+import { ExternalLink } from "@lucide/astro";
 import Layout from "./Layout.astro";
 import TechBadge from "@/components/TechBadge.astro";
+import { Icon } from "astro-icon/components";
+import type { TagKey } from "@/lib/tags";
 
 const { frontmatter } = Astro.props;
 ---
@@ -34,7 +36,8 @@ const { frontmatter } = Astro.props;
           href={`${frontmatter.github}`}
           class="text-black inline-flex items-center px-6 py-3 border border-slate-300 rounded-lg font-semibold hover:bg-slate-50 transition-all gap-2"
         >
-          <Github /> Ver código
+          <Icon name="mdi:github" class="w-9 h-9" />
+          Ver código
         </a>
       </div>
     </div>
@@ -47,7 +50,7 @@ const { frontmatter } = Astro.props;
             stack tecnológico
           </h4>
           <div class="flex flex-wrap gap-3">
-            {frontmatter.tags.map((tag) => <TechBadge tagKey={tag} />)}
+            {frontmatter.tags.map((tag: TagKey) => <TechBadge tagKey={tag} />)}
           </div>
         </div>
       </div>
