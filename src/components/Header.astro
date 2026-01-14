@@ -7,7 +7,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import type { Lang } from "@/i18n/ui";
+import { languages, type Lang } from "@/i18n/ui";
 import { useTranslations } from "@/i18n/utils";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
@@ -15,6 +15,12 @@ const pathName = Astro.url.pathname;
 const lang = (Astro.currentLocale || "es") as Lang;
 
 const normalize = (s: string | undefined) => (s ? s.replace(/\/+$/, "") : "");
+
+let currentLangPrefix = getRelativeLocaleUrl(lang, "");
+
+if (!currentLangPrefix.endsWith("/")) currentLangPrefix += "/";
+
+const purePath = pathName.replace(currentLangPrefix, "").replace(/^\//, "");
 
 const t = useTranslations(lang);
 const homeUrl = getRelativeLocaleUrl(lang);
@@ -32,6 +38,8 @@ const desktopLinkClass =
   "uppercase tracking-widest hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent";
 const mobileLinkClass =
   "text-xl uppercase tracking-widest font-semibold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent";
+const langSwitchClass =
+  "uppercase font-bold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent data-[state=open]:text-emerald-500";
 ---
 
 <header
@@ -49,16 +57,12 @@ const mobileLinkClass =
     )
   }
 
-  <NavigationMenu class="hidden md:flex">
+  <NavigationMenu class="hidden md:flex absolute left-1/2 -translate-x-1/2">
     <NavigationMenuList class="gap-6">
       {
         navItems.map((item) => (
           <NavigationMenuItem>
-            <NavigationMenuLink
-              href={item.href}
-              variant="trigger"
-              class={desktopLinkClass}
-            >
+            <NavigationMenuLink href={item.href} class={desktopLinkClass}>
               {item.label}
             </NavigationMenuLink>
           </NavigationMenuItem>
@@ -67,30 +71,63 @@ const mobileLinkClass =
     </NavigationMenuList>
   </NavigationMenu>
 
-  <NavigationMenu class="md:hidden">
-    <NavigationMenuList>
-      <NavigationMenuItem class="static">
-        <NavigationMenuTrigger
-          class="text-2xl p-2 bg-transparent hover:bg-transparent focus:bg-transparent"
-        >
-          <span id="mobile-icon">☰</span>
-        </NavigationMenuTrigger>
-        <NavigationMenuContent
-          class="fixed top-22 left-0 w-full h-auto bg-(--color-glass-bg) backdrop-blur-xl border-b border-(--color-glass-border) p-8 shadow-2xl transition-all duration-500 ease-in-out -translate-y-4 opacity-0 group-focus-within/navigation-menu-item:translate-y-0 group-focus-within/navigation-menu-item:opacity-100"
-        >
-          <ul class="flex flex-col items-center space-y-6">
-            {
-              navItems.map((item) => (
-                <li>
-                  <NavigationMenuLink href={item.href} class={mobileLinkClass}>
-                    {item.label}
-                  </NavigationMenuLink>
-                </li>
-              ))
-            }
-          </ul>
-        </NavigationMenuContent>
-      </NavigationMenuItem>
-    </NavigationMenuList>
-  </NavigationMenu>
+  <div class="flex items-center gap-4">
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger class={langSwitchClass}>
+            {lang}
+          </NavigationMenuTrigger>
+          <NavigationMenuContent
+            class="min-w-16 bg-(--color-glass-bg) backdrop-blur-xl border border-(--color-glass-border) p-2 shadow-xl rounded-md"
+          >
+            <ul class="flex flex-col gap-2 text-center">
+              {
+                Object.keys(languages).map((l) => (
+                  <li>
+                    <NavigationMenuLink
+                      href={getRelativeLocaleUrl(l, purePath)}
+                      class={`block px-2 py-1 uppercase text-sm hover:text-emerald-500 transition-colors ${l === lang ? "text-emerald-500 font-bold" : ""}`}
+                    >
+                      {l}
+                    </NavigationMenuLink>
+                  </li>
+                ))
+              }
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
+
+    <NavigationMenu class="md:hidden">
+      <NavigationMenuList>
+        <NavigationMenuItem class="static">
+          <NavigationMenuTrigger
+            class="text-2xl p-2 bg-transparent hover:bg-transparent focus:bg-transparent"
+          >
+            <span id="mobile-icon">☰</span>
+          </NavigationMenuTrigger>
+          <NavigationMenuContent
+            class="fixed top-20 left-0 w-full h-auto bg-(--color-glass-bg) backdrop-blur-xl border-b border-(--color-glass-border) p-8 shadow-2xl transition-all duration-500 ease-in-out -translate-y-4 opacity-0 group-focus-within/navigation-menu-item:translate-y-0 group-focus-within/navigation-menu-item:opacity-100"
+          >
+            <ul class="flex flex-col items-center space-y-6">
+              {
+                navItems.map((item) => (
+                  <li>
+                    <NavigationMenuLink
+                      href={item.href}
+                      class={mobileLinkClass}
+                    >
+                      {item.label}
+                    </NavigationMenuLink>
+                  </li>
+                ))
+              }
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
+  </div>
 </header>
