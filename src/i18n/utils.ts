@@ -12,7 +12,12 @@ export function useTranslations(currentLocale = defaultLang) {
   };
 }
 
-export function getUrl(currentLocale = defaultLang, page: string) {
+export function getUrl(currentLocale = defaultLang, page?: string) {
   const lang = currentLocale as Lang;
+
+  if (!page) {
+    return getRelativeLocaleUrl(lang);
+  }
+
   return getRelativeLocaleUrl(lang, page);
 }

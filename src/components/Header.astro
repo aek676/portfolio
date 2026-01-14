@@ -7,27 +7,23 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { languages, type Lang } from "@/i18n/ui";
-import { useTranslations } from "@/i18n/utils";
-import { getRelativeLocaleUrl } from "astro:i18n";
+import { languages } from "@/i18n/ui";
+import { getUrl, useTranslations } from "@/i18n/utils";
 
 const pathName = Astro.url.pathname;
-const lang = (Astro.currentLocale || "es") as Lang;
 
 const normalize = (s: string | undefined) => (s ? s.replace(/\/+$/, "") : "");
 
-let currentLangPrefix = getRelativeLocaleUrl(lang, "");
-
-if (!currentLangPrefix.endsWith("/")) currentLangPrefix += "/";
+let currentLangPrefix = getUrl(Astro.currentLocale, "");
 
 const purePath = pathName.replace(currentLangPrefix, "").replace(/^\//, "");
 
-const t = useTranslations(lang);
-const homeUrl = getRelativeLocaleUrl(lang);
+const t = useTranslations(Astro.currentLocale);
+const homeUrl = getUrl(Astro.currentLocale);
 const navItems = [
   { label: t("nav.home"), href: homeUrl },
-  { label: t("nav.projects"), href: getRelativeLocaleUrl(lang, "projects") },
-  { label: t("nav.about"), href: getRelativeLocaleUrl(lang, "about") },
+  { label: t("nav.projects"), href: getUrl(Astro.currentLocale, "projects") },
+  { label: t("nav.about"), href: getUrl(Astro.currentLocale, "about") },
 ];
 
 const isHome = normalize(pathName) === normalize(homeUrl);
@@ -76,7 +72,7 @@ const langSwitchClass =
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger class={langSwitchClass}>
-            {lang}
+            {Astro.currentLocale}
           </NavigationMenuTrigger>
           <NavigationMenuContent
             class="min-w-16 bg-(--color-glass-bg) backdrop-blur-xl border border-(--color-glass-border) p-2 shadow-xl rounded-md"
@@ -86,8 +82,9 @@ const langSwitchClass =
                 Object.keys(languages).map((l) => (
                   <li>
                     <NavigationMenuLink
-                      href={getRelativeLocaleUrl(l, purePath)}
-                      class={`block px-2 py-1 uppercase text-sm hover:text-emerald-500 transition-colors ${l === lang ? "text-emerald-500 font-bold" : ""}`}
+                      href={getUrl(l, purePath)}
+                      class={`block px-2 py-1 uppercase text-sm hover:text-emerald-500 transition-colors ${l === Astro.currentLocale ? "text-emerald-500 font-bold" : ""}`}
+                      aria-label={`${t("nav.changeLang")} ${l}`}
                     >
                       {l}
                     </NavigationMenuLink>
