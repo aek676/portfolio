@@ -13,7 +13,6 @@
     "@astrojs/check": "^0.9.6",
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.6.0",
-    "@iconify-json/mdi": "^1.2.3",
     "@lucide/astro": "^0.562.0",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
@@ -34,6 +33,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@iconify-json/mdi": "^1.2.3",
     "@astrojs/mdx": "^4.3.13",
     "@iconify-json/devicon-plain": "^1.2.51",
     "@tailwindcss/typography": "^0.5.19",
