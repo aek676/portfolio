@@ -1,16 +1,16 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-import ChevronDown from 'lucide-static/icons/chevron-down.svg';
+import type { HTMLAttributes } from "astro/types";
+import ChevronDown from "lucide-static/icons/chevron-down.svg";
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
-type Props = HTMLAttributes<'button'> & HTMLAttributes<'a'>;
+type Props = HTMLAttributes<"button"> & HTMLAttributes<"a">;
 
 const { class: className, href, ...props } = Astro.props;
 
-const slot = await Astro.slots.render('default');
+const slot = await Astro.slots.render("default");
 
-const Comp = href ? 'a' : 'button';
+const Comp = href ? "a" : "button";
 ---
 
 {

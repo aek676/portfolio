@@ -1,41 +1,41 @@
 ---
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
+	NavigationMenu,
+	NavigationMenuContent,
+	NavigationMenuItem,
+	NavigationMenuLink,
+	NavigationMenuList,
+	NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { languages } from "@/i18n/ui";
-import { getUrl, useTranslations } from "@/i18n/utils";
+import { getTranslations, getUrl } from "@/i18n/utils";
 
 const pathName = Astro.url.pathname;
 
 const normalize = (s: string | undefined) => (s ? s.replace(/\/+$/, "") : "");
 
+const t = getTranslations(Astro.currentLocale);
+
 let currentLangPrefix = getUrl(Astro.currentLocale, "");
 
 const purePath = pathName.replace(currentLangPrefix, "").replace(/^\//, "");
-
-const t = useTranslations(Astro.currentLocale);
 const homeUrl = getUrl(Astro.currentLocale);
 const navItems = [
-  { label: t("nav.home"), href: homeUrl },
-  { label: t("nav.projects"), href: getUrl(Astro.currentLocale, "projects") },
-  { label: t("nav.about"), href: getUrl(Astro.currentLocale, "about") },
+	{ label: t("nav.home"), href: homeUrl },
+	{ label: t("nav.projects"), href: getUrl(Astro.currentLocale, "projects") },
+	{ label: t("nav.about"), href: getUrl(Astro.currentLocale, "about") },
 ];
 
 const isHome = normalize(pathName) === normalize(homeUrl);
 
 const logoClass =
-  "text-2xl font-bold tracking-tighter italic hover:opacity-80 transition-opacity";
+	"text-2xl font-bold tracking-tighter italic hover:opacity-80 transition-opacity";
 const desktopLinkClass =
-  "uppercase tracking-widest hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent";
+	"uppercase tracking-widest hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent";
 const mobileLinkClass =
-  "text-xl uppercase tracking-widest font-semibold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent";
+	"text-xl uppercase tracking-widest font-semibold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent";
 const langSwitchClass =
-  "uppercase font-bold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent data-[state=open]:text-emerald-500";
+	"uppercase font-bold hover:text-emerald-500 transition-colors bg-transparent hover:bg-transparent data-[state=open]:text-emerald-500";
 ---
 
 <header

@@ -1,23 +1,23 @@
-import { ui, defaultLang, type Lang } from "./ui";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { defaultLang, type Lang, ui } from "./ui";
 
-export function useTranslations(currentLocale = defaultLang) {
-  const lang = currentLocale as Lang;
-  return function t(key: keyof (typeof ui)[typeof defaultLang]) {
-    if (ui[lang] && ui[lang][key]) {
-      return ui[lang][key];
-    }
+export function getTranslations(currentLocale = defaultLang) {
+	const lang = currentLocale as Lang;
+	return function t(key: keyof (typeof ui)[typeof defaultLang]) {
+		if (ui[lang]?.[key]) {
+			return ui[lang][key];
+		}
 
-    return ui[defaultLang][key];
-  };
+		return ui[defaultLang][key];
+	};
 }
 
 export function getUrl(currentLocale = defaultLang, page?: string) {
-  const lang = currentLocale as Lang;
+	const lang = currentLocale as Lang;
 
-  if (!page) {
-    return getRelativeLocaleUrl(lang);
-  }
+	if (!page) {
+		return getRelativeLocaleUrl(lang);
+	}
 
-  return getRelativeLocaleUrl(lang, page);
+	return getRelativeLocaleUrl(lang, page);
 }

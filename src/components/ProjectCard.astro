@@ -1,19 +1,19 @@
 ---
-import { getUrl, useTranslations } from "@/i18n/utils";
-import type { TagKey } from "@/lib/tags";
 import { Image } from "astro:assets";
+import { getTranslations, getUrl } from "@/i18n/utils";
+import type { TagKey } from "@/lib/tags";
 import TechBadge from "./TechBadge.astro";
 
 interface Props {
-  id: string;
-  title: string;
-  description: string;
-  image: ImageMetadata;
-  tags: TagKey[];
-  loading?: "lazy" | "eager";
+	id: string;
+	title: string;
+	description: string;
+	image: ImageMetadata;
+	tags: TagKey[];
+	loading?: "lazy" | "eager";
 }
 
-const t = useTranslations(Astro.currentLocale);
+const t = getTranslations(Astro.currentLocale);
 
 const { id, title, description, image, tags, loading = "lazy" } = Astro.props;
 ---

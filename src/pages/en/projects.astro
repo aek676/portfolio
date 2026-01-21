@@ -1,8 +1,8 @@
 ---
+import { getCollection } from "astro:content";
 import Background from "@/components/Background.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import Layout from "@/layouts/Layout.astro";
-import { getCollection } from "astro:content";
 
 const allProjects = await getCollection("projects");
 ---
