@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import {
 	NavigationMenu,
 	NavigationMenuContent,
@@ -11,7 +12,6 @@ import { languages } from "@/i18n/ui";
 import { getTranslations, getUrl } from "@/i18n/utils";
 
 const pathName = Astro.url.pathname;
-
 const normalize = (s: string | undefined) => (s ? s.replace(/\/+$/, "") : "");
 
 const t = getTranslations(Astro.currentLocale);
@@ -103,7 +103,7 @@ const langSwitchClass =
           <NavigationMenuTrigger
             class="text-2xl p-2 bg-transparent hover:bg-transparent focus:bg-transparent"
           >
-            <span id="mobile-icon">☰</span>
+            <Icon name="mdi:menu" />
           </NavigationMenuTrigger>
           <NavigationMenuContent
             class="fixed top-20 left-0 w-full h-auto bg-(--color-glass-bg) backdrop-blur-xl border-b border-(--color-glass-border) p-8 shadow-2xl transition-all duration-500 ease-in-out -translate-y-4 opacity-0 group-focus-within/navigation-menu-item:translate-y-0 group-focus-within/navigation-menu-item:opacity-100"

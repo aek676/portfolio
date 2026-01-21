@@ -41,7 +41,7 @@ const { id, title, description, image, tags, loading = "lazy" } = Astro.props;
     {tags.map((tag) => <TechBadge tagKey={tag} />)}
   </div>
   <a
-    href={`${getUrl(Astro.currentLocale, "projects")}/${id}`}
+    href={`${getUrl(Astro.currentLocale, "projects")}${id}`}
     class="inline-block text-emerald-600 font-bold hover:underline"
     >{t("projectCard.viewProject")} &rarr;
   </a>
