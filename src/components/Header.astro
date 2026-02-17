@@ -97,16 +97,16 @@ const langSwitchClass =
       </NavigationMenuList>
     </NavigationMenu>
 
-    <NavigationMenu class="md:hidden">
+    <NavigationMenu class="md:hidden" id="mobile-menu">
       <NavigationMenuList>
         <NavigationMenuItem class="static">
           <NavigationMenuTrigger
-            class="text-2xl p-2 bg-transparent hover:bg-transparent focus:bg-transparent"
+            class="text-2xl p-2 bg-transparent hover:bg-transparent focus:bg-transparent mobile-menu-trigger"
           >
-            <Icon name="mdi:menu" />
+            <Icon name="mdi:menu" class="menu-icon" />
           </NavigationMenuTrigger>
           <NavigationMenuContent
-            class="fixed top-20 left-0 w-full h-auto bg-(--color-glass-bg) backdrop-blur-xl border-b border-(--color-glass-border) p-8 shadow-2xl transition-all duration-500 ease-in-out -translate-y-4 opacity-0 group-focus-within/navigation-menu-item:translate-y-0 group-focus-within/navigation-menu-item:opacity-100"
+            class="mobile-menu-content fixed top-20 left-0 w-full h-auto bg-(--color-glass-bg) backdrop-blur-xl border-b border-(--color-glass-border) p-8 shadow-2xl transition-all duration-500 ease-in-out -translate-y-4 opacity-0 group-focus-within/navigation-menu-item:translate-y-0 group-focus-within/navigation-menu-item:opacity-100"
           >
             <ul class="flex flex-col items-center space-y-6">
               {
@@ -128,3 +128,46 @@ const langSwitchClass =
     </NavigationMenu>
   </div>
 </header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const trigger = mobileMenu?.querySelector('.mobile-menu-trigger');
+    const content = mobileMenu?.querySelector('.mobile-menu-content');
+    const menuIcon = trigger?.querySelector('.menu-icon');
+    let isOpen = false;
+
+    const toggleMenu = () => {
+      isOpen = !isOpen;
+      if (isOpen) {
+        content?.classList.remove('-translate-y-4', 'opacity-0');
+        content?.classList.add('translate-y-0', 'opacity-100');
+        if (menuIcon) menuIcon.setAttribute('name', 'mdi:close');
+      } else {
+        content?.classList.add('-translate-y-4', 'opacity-0');
+        content?.classList.remove('translate-y-0', 'opacity-100');
+        if (menuIcon) menuIcon.setAttribute('name', 'mdi:menu');
+      }
+    };
+
+    trigger?.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    // Close when clicking a link
+    content?.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (isOpen) toggleMenu();
+      });
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", (e) => {
+      if (isOpen && !mobileMenu?.contains(e.target as Node)) {
+        toggleMenu();
+      }
+    });
+  });
+</script>
